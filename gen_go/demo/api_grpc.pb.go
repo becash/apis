@@ -19,8 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceDemo_GetOne_FullMethodName  = "/demo.ServiceDemo/GetOne"
-	ServiceDemo_GetMany_FullMethodName = "/demo.ServiceDemo/GetMany"
+	ServiceDemo_GetOne_FullMethodName = "/demo.ServiceDemo/GetOne"
 )
 
 // ServiceDemoClient is the client API for ServiceDemo service.
@@ -28,7 +27,6 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceDemoClient interface {
 	GetOne(ctx context.Context, in *ItemIdInt32, opts ...grpc.CallOption) (*Item, error)
-	GetMany(ctx context.Context, in *ItemIdInt32, opts ...grpc.CallOption) (*Item, error)
 }
 
 type serviceDemoClient struct {
@@ -49,22 +47,11 @@ func (c *serviceDemoClient) GetOne(ctx context.Context, in *ItemIdInt32, opts ..
 	return out, nil
 }
 
-func (c *serviceDemoClient) GetMany(ctx context.Context, in *ItemIdInt32, opts ...grpc.CallOption) (*Item, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Item)
-	err := c.cc.Invoke(ctx, ServiceDemo_GetMany_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ServiceDemoServer is the server API for ServiceDemo service.
 // All implementations must embed UnimplementedServiceDemoServer
 // for forward compatibility.
 type ServiceDemoServer interface {
 	GetOne(context.Context, *ItemIdInt32) (*Item, error)
-	GetMany(context.Context, *ItemIdInt32) (*Item, error)
 	mustEmbedUnimplementedServiceDemoServer()
 }
 
@@ -77,9 +64,6 @@ type UnimplementedServiceDemoServer struct{}
 
 func (UnimplementedServiceDemoServer) GetOne(context.Context, *ItemIdInt32) (*Item, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOne not implemented")
-}
-func (UnimplementedServiceDemoServer) GetMany(context.Context, *ItemIdInt32) (*Item, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMany not implemented")
 }
 func (UnimplementedServiceDemoServer) mustEmbedUnimplementedServiceDemoServer() {}
 func (UnimplementedServiceDemoServer) testEmbeddedByValue()                     {}
@@ -120,24 +104,6 @@ func _ServiceDemo_GetOne_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceDemo_GetMany_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ItemIdInt32)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceDemoServer).GetMany(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceDemo_GetMany_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceDemoServer).GetMany(ctx, req.(*ItemIdInt32))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // ServiceDemo_ServiceDesc is the grpc.ServiceDesc for ServiceDemo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -148,10 +114,6 @@ var ServiceDemo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOne",
 			Handler:    _ServiceDemo_GetOne_Handler,
-		},
-		{
-			MethodName: "GetMany",
-			Handler:    _ServiceDemo_GetMany_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

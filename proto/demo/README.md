@@ -8,7 +8,6 @@ repo: git url to project# Protocol Documentation
 - [demo/api.proto](#demo_api-proto)
     - [Item](#demo-Item)
     - [ItemIdInt32](#demo-ItemIdInt32)
-    - [Items](#demo-Items)
   
     - [ServiceDemo](#demo-ServiceDemo)
   
@@ -53,22 +52,6 @@ use from common
 
 
 
-
-<a name="demo-Items"></a>
-
-### Items
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| count | [int32](#int32) |  | count of items in database |
-| data | [Item](#demo-Item) | repeated | list of items |
-
-
-
-
-
  
 
  
@@ -84,7 +67,6 @@ use from common
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | GetOne | [ItemIdInt32](#demo-ItemIdInt32) | [Item](#demo-Item) |  |
-| GetMany | [ItemIdInt32](#demo-ItemIdInt32) | [Item](#demo-Item) |  |
 
  
 
