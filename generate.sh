@@ -3,8 +3,8 @@
 PWD=$(pwd)
 TS=$(/bin/date "+%s")
 DESTDIR_GO=./gen_go
-DESTDIR_GRAPHQL=./gen_graphql
-DESTDIR_OPENAPI=./gen_openapi_json
+#DESTDIR_GRAPHQL=./gen_graphql
+DESTDIR_OPENAPI=./gen_openapi
 
 #rm -rf ${DESTDIR_GO} ./*/README.md
 mkdir -p ${DESTDIR_GO} ${DESTDIR_OPENAPI}
@@ -13,23 +13,23 @@ mkdir -p ${DESTDIR_GO} ${DESTDIR_OPENAPI}
 echo ---------------------BUILD ENVIRONMENT CONTAINER--------------------------
 docker build -f code_generator/DockerfileGo --tag=protoc-go ./
 docker run -v ${PWD}:/root/data protoc-go go mod init github.com/becash/apis
-#
-#
-## Generate go files
-#echo ---------------------GENERATE GO FILES------------------------------------
-#docker run -v ${PWD}:/root/data protoc-go \
-#    protoc \
-#		--proto_path=proto \
-#		--experimental_allow_proto3_optional \
-#		--go_out=${DESTDIR_GO} \
-#		--go_opt=module=github.com/becash/apis/gen_go \
-#		--go-grpc_out=${DESTDIR_GO} \
-#		--go-grpc_opt=paths=source_relative \
-#		--grpc-gateway_out ${DESTDIR_GO} \
-#    --grpc-gateway_opt paths=source_relative \
-#		./proto/*/*.proto
-#
-#
+
+
+# Generate go files
+echo ---------------------GENERATE GO FILES------------------------------------
+docker run -v ${PWD}:/root/data protoc-go \
+    protoc \
+		--proto_path=proto \
+		--experimental_allow_proto3_optional \
+		--go_out=${DESTDIR_GO} \
+		--go_opt=module=github.com/becash/apis/gen_go \
+		--go-grpc_out=${DESTDIR_GO} \
+		--go-grpc_opt=paths=source_relative \
+		--grpc-gateway_out ${DESTDIR_GO} \
+    --grpc-gateway_opt paths=source_relative \
+		./proto/*/*.proto
+
+
 #echo ---------------------GENERATE GRAPHQL FILES --------------------------------
 #docker run -v ${PWD}:/root/data protoc-go \
 #    protoc \
@@ -39,19 +39,25 @@ docker run -v ${PWD}:/root/data protoc-go go mod init github.com/becash/apis
 #		./proto/*/*.proto
 #python patch_graphql.py
 
-echo ---------------------GENERATE GRAPHQL FILES --------------------------------
+echo "---------------------GENERATE OPENAPI FILES ( TODO merge in documentation step )--------------------------------"
 docker run -v ${PWD}:/root/data protoc-go \
     protoc \
 		--proto_path=proto \
-    --openapiv2_out "${DESTDIR_OPENAPI}" \
-    --openapiv2_opt=allow_merge=true,merge_file_name=demo \
+    --openapi_out=fq_schema_naming=true,default_response=false:${DESTDIR_OPENAPI} \
 		./proto/*/*.proto
 
-# Set permissions
-echo ---------------------SET PERMISSIONS--------------------------------------
-docker run -v ${PWD}:/root/data protoc-go chmod -R 777 ${DESTDIR_GRAPHQL}
-docker run -v ${PWD}:/root/data protoc-go chmod -R 777 ${DESTDIR_GO}
 
+docker run -v ${PWD}:/root/data protoc-go \
+  oapi-codegen -generate types -o ${DESTDIR_OPENAPI}/types.gen.go -package api ${DESTDIR_OPENAPI}/openapi.yaml
+
+docker run -v ${PWD}:/root/data protoc-go \
+  oapi-codegen -generate server -o ${DESTDIR_OPENAPI}/server.gen.go -package api ${DESTDIR_OPENAPI}/openapi.yaml
+
+docker run -v ${PWD}:/root/data protoc-go \
+  oapi-codegen -generate client -o ${DESTDIR_OPENAPI}/client.gen.go -package api ${DESTDIR_OPENAPI}/openapi.yaml
+#
+#docker run -v ${PWD}:/root/data protoc-go \
+#  oapi-codegen -generate client -o ${DESTDIR_OPENAPI}/client.gen.go -package openapi ${DESTDIR_OPENAPI}/demo.swagger.json
 
 # Generate documentation, from protofiles
 echo ---------------------GENERATE DOCUMENTATION-------------------------------
@@ -67,3 +73,9 @@ for dir in ./gen_go/*/; do
 
   unlink ./proto/"${PROJECT}"/DOCUMENTATION.md
 done
+
+# Set permissions
+echo ---------------------SET PERMISSIONS--------------------------------------
+#docker run -v ${PWD}:/root/data protoc-go chmod -R 777 ${DESTDIR_GRAPHQL}
+docker run -v ${PWD}:/root/data protoc-go chmod -R 777 ${DESTDIR_GO}
+docker run -v ${PWD}:/root/data protoc-go chmod -R 777 ${DESTDIR_OPENAPI}

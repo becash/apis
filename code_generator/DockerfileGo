@@ -18,7 +18,8 @@ RUN unzip protoc-gen-gql.zip -d /bin && chmod +x /bin/protoc-gen-gql
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.8
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
-RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
+RUN go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 RUN go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+RUN go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 
 WORKDIR /root/data/
