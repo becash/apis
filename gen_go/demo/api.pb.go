@@ -27,6 +27,7 @@ type ItemIdInt32 struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Filter documents by ID
 	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
@@ -72,7 +73,9 @@ type Item struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// item ID
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// item description
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 }
 
@@ -125,8 +128,10 @@ type Items struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Count int32   `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
-	Data  []*Item `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
+	// count of items in database
+	Count int32 `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	// list of items
+	Data []*Item `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *Items) Reset() {

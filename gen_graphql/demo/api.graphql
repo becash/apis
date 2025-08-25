@@ -1,6 +1,14 @@
 directive @ServiceDemo on FIELD_DEFINITION
 type Demo_Item @goModel(model: "github.com/becash/apis/gen_go/demo.Item") {
+	"""
+	 item ID
+	
+	"""
 	id: Int!
+	"""
+	 item description
+	
+	"""
 	description: String
 }
 """
@@ -8,9 +16,13 @@ type Demo_Item @goModel(model: "github.com/becash/apis/gen_go/demo.Item") {
 
 """
 input Demo_ItemIdInt32Input @goModel(model: "github.com/becash/apis/gen_go/demo.ItemIdInt32") {
+	"""
+	 Filter documents by ID
+	
+	"""
 	id: Int!
 }
-extend type Query {
-	item(input: Demo_ItemIdInt32Input!): Demo_Item!
-	items(input: Demo_ItemIdInt32Input!): Demo_Item!
+type Query {
+	item(in: Demo_ItemIdInt32Input): Demo_Item
+	items(in: Demo_ItemIdInt32Input): Demo_Item
 }

@@ -25,17 +25,22 @@ service ServiceDemo {
 
 // use from common
 message ItemIdInt32 {
+  // Filter documents by ID
   int32 id = 1 [(danielvladco.protobuf.graphql.field) = {required: true}];
 }
 
 
 message Item {
+  // item ID
   int32 id = 1 [(danielvladco.protobuf.graphql.field) = {required: true}];
+  // item description
   string description  = 2;
 }
 
 message Items {
+  // count of items in database
   int32 count = 1 [(danielvladco.protobuf.graphql.field) = {required: true}];
+  // list of items
   repeated Item data = 2 [(danielvladco.protobuf.graphql.field) = {required: true}];
 }
 
