@@ -4,7 +4,7 @@ PWD=$(pwd)
 TS=$(/bin/date "+%s")
 DESTDIR_GO=./gen_go
 DESTDIR_GRAPHQL=./gen_graphql
-DESTDIR_OPENAPI=./gen_openapi
+DESTDIR_OPENAPI=./gen_openapi_json
 
 #rm -rf ${DESTDIR_GO} ./*/README.md
 mkdir -p ${DESTDIR_GO} ${DESTDIR_OPENAPI}
