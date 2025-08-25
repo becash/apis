@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package demo;
+
+import "danielvladco/protobuf/graphql.proto";
+
+option go_package = "github.com/becash/apis/gen_go/demo";
+
+service ServiceDemo {
+  option (danielvladco.protobuf.graphql.svc) = {name: ""};
+
+  rpc GetOne(ItemIdInt32) returns (Item) {
+    option (danielvladco.protobuf.graphql.rpc) = {
+      type: QUERY,
+      name: "item"
+    };
+  }
+  rpc GetMany(ItemIdInt32) returns (Item) {
+    option (danielvladco.protobuf.graphql.rpc) = {
+      type: QUERY,
+      name: "items"
+    };
+  }
+}
+
+// use from common
+message ItemIdInt32 {
+  int32 id = 1 [(danielvladco.protobuf.graphql.field) = {required: true}];
+}
+
+
+message Item {
+  int32 id = 1 [(danielvladco.protobuf.graphql.field) = {required: true}];
+  string description  = 2;
+}
+
+message Items {
+  int32 count = 1 [(danielvladco.protobuf.graphql.field) = {required: true}];
+  repeated Item data = 2 [(danielvladco.protobuf.graphql.field) = {required: true}];
+}
+
