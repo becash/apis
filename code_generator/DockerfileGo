@@ -1,0 +1,23 @@
+FROM golang:1.24-bullseye
+
+ENV PROTOBUF_VERSION=31.1
+
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive \
+    apt-get install --no-install-recommends --assume-yes \
+    unzip \
+    graphviz
+
+RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip
+RUN unzip protoc-${PROTOBUF_VERSION}-linux-x86_64.zip -d /
+
+COPY code_generator .
+RUN unzip protoc-gen-doc.zip -d /bin && chmod +x /bin/protoc-gen-doc
+RUN unzip protoc-gen-gql.zip -d /bin && chmod +x /bin/protoc-gen-gql
+
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.35.2
+RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
+RUN go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+
+WORKDIR /root/data/

@@ -1,0 +1,22 @@
+repos:
+  - repo: https://github.com/bufbuild/buf
+    rev: v1.30.0
+    hooks:
+      - id: buf-format
+        name: buf format
+        description: Automatically formats proto files according to official Style Guide.
+        language: golang
+        types: [ proto ]
+        stages: [ commit, push ]
+        entry: buf format
+        args: [ -w, --exit-code]
+  - repo: https://github.com/yoheimuta/protolint
+    rev: v0.46.3
+    hooks:
+      - id: protolint
+        name: Lint Protocol Buffer Files
+        description: Runs protolint to lint Protocol Buffer files
+        language: golang
+        types: [ proto ]
+        stages: [ commit, push ]
+        entry: protolint lint proto
