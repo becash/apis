@@ -3,8 +3,21 @@ syntax = "proto3";
 package demo;
 
 import "danielvladco/protobuf/graphql.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/becash/apis/gen_go/demo";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Demo Service API";
+    version: "1.0.0";
+    description: "HTTP/JSON API for Demo service via gRPC-Gateway";
+  };
+  schemes: HTTP;
+  consumes: "application/json";
+  produces: "application/json";
+};
 
 service ServiceDemo {
   option (danielvladco.protobuf.graphql.svc) = {name: ""};
@@ -14,11 +27,17 @@ service ServiceDemo {
       type: QUERY,
       name: "item"
     };
+    option (google.api.http) = {
+      get: "/v1/item/{id}"
+    };
   }
   rpc GetMany(ItemIdInt32) returns (Item) {
     option (danielvladco.protobuf.graphql.rpc) = {
       type: QUERY,
       name: "items"
+    };
+    option (google.api.http) = {
+      get: "/v1/items"
     };
   }
 }
