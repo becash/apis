@@ -36,6 +36,8 @@ docker run -v ${PWD}:/root/data protoc-go \
 		--experimental_allow_proto3_optional \
 		--gql_out=merge=false,prefix=true,go_model=github.com/becash/apis/gen_go/,output=:${DESTDIR_GRAPHQL} \
 		./proto/*/*.proto
+@python patch_graphql.py
+
 
 # Set permissions
 echo ---------------------SET PERMISSIONS--------------------------------------

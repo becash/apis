@@ -1,0 +1,16 @@
+directive @ServiceDemo on FIELD_DEFINITION
+type Demo_Item @goModel(model: "github.com/becash/apis/gen_go/demo.Item") {
+	id: Int!
+	description: String
+}
+"""
+ use from common
+
+"""
+input Demo_ItemIdInt32Input @goModel(model: "github.com/becash/apis/gen_go/demo.ItemIdInt32") {
+	id: Int!
+}
+extend type Query {
+	item(input: Demo_ItemIdInt32Input!): Demo_Item!
+	items(input: Demo_ItemIdInt32Input!): Demo_Item!
+}
