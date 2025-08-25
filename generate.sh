@@ -51,13 +51,10 @@ docker run -v ${PWD}:/root/data protoc-go \
   oapi-codegen -generate types -o ${DESTDIR_OPENAPI}/demo/types.gen.go -package demo ${DESTDIR_OPENAPI}/openapi.yaml
 
 docker run -v ${PWD}:/root/data protoc-go \
-  oapi-codegen -generate server -o ${DESTDIR_OPENAPI}/demo/server.gen.go -package demo ${DESTDIR_OPENAPI}/openapi.yaml
+  oapi-codegen -generate std-http-server -o ${DESTDIR_OPENAPI}/demo/server.gen.go -package demo ${DESTDIR_OPENAPI}/openapi.yaml
 
-docker run -v ${PWD}:/root/data protoc-go \
-  oapi-codegen -generate client -o ${DESTDIR_OPENAPI}/demo/client.gen.go -package demo ${DESTDIR_OPENAPI}/openapi.yaml
-#
 #docker run -v ${PWD}:/root/data protoc-go \
-#  oapi-codegen -generate client -o ${DESTDIR_OPENAPI}/client.gen.go -package openapi ${DESTDIR_OPENAPI}/demo.swagger.json
+#  oapi-codegen -generate client -o ${DESTDIR_OPENAPI}/demo/client.gen.go -package demo ${DESTDIR_OPENAPI}/openapi.yaml
 
 # Generate documentation, from protofiles
 echo ---------------------GENERATE DOCUMENTATION-------------------------------
