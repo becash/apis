@@ -1,16 +1,18 @@
 syntax = "proto3";
 
-package demo;
+package swallow;
 
 import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 
-option go_package = "github.com/becash/apis/gen_go/demo";
+option go_package = "github.com/becash/apis/gen_go/swallow";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-    title: "Demo Service API";
-    version: "1.0.0";
-    description: "HTTP/JSON API for Demo service via gRPC-Gateway";
+    title: "Swallow Service API";
+    version: "0.1";
+    description: "HTTP/JSON API for Swallow service";
   };
   schemes: HTTP;
   consumes: "application/json";
@@ -27,10 +29,42 @@ message FieldFilter {
 // Can be Ticket/Reservation
 message Product {
   // item ID
-  int32 id = 1 ;
+  int32 id = 1;
+  // client side, data, now we not using them,
+  // but in future if field will participate to internal logic need to be added to Product fields
+  string json_metadata = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    type: []
+  }]
+;
+}
+
+message Products{
+  repeated Product data = 1;
+  int64 count = 2;
+}
+
+message UpsertProductRequest {
+  // item ID, if filed exist: Update else Create
+  int32 id = 1;
+  // client side, data, now we not using them,
+  // but in future if field will participate to internal logic need to be added to Product fields
+  string json_metadata = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    type: []
+  }]
+;
 }
 
 service ServiceSwallow {
   // Get on product by some field
-  rpc GetProduct(FieldFilter) returns (Product) {}
+  rpc GetProduct(FieldFilter) returns (Product) {
+    option (google.api.http) = {get: "/v1/product/{id}"};
+  }
+
+  rpc GetProducts(google.protobuf.Empty) returns (Product) {
+    option (google.api.http) = {get: "/v1/products"};
+  }
+
+  rpc UpsertProduct(UpsertProductRequest) returns (Product) {
+    option (google.api.http) = {post: "/v1/product"};
+  }
 }

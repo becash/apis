@@ -4,11 +4,44 @@
 package swallow
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/oapi-codegen/runtime"
 )
+
+// SwallowProduct Can be Ticket/Reservation
+type SwallowProduct struct {
+	// Id item ID
+	Id *int32 `json:"id,omitempty"`
+
+	// JsonMetadata client side, data, now we not using them,
+	//  but in future if field will participate to internal logic need to be added to Product fields
+	JsonMetadata *string `json:"jsonMetadata,omitempty"`
+}
+
+// ServiceSwallowUpsertProductParams defines parameters for ServiceSwallowUpsertProduct.
+type ServiceSwallowUpsertProductParams struct {
+	// Id item ID, if filed exist: Update else Create
+	Id *int32 `form:"id,omitempty" json:"id,omitempty"`
+
+	// JsonMetadata client side, data, now we not using them,
+	//  but in future if field will participate to internal logic need to be added to Product fields
+	JsonMetadata *string `form:"jsonMetadata,omitempty" json:"jsonMetadata,omitempty"`
+}
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
+
+	// (POST /v1/product)
+	ServiceSwallowUpsertProduct(c *gin.Context, params ServiceSwallowUpsertProductParams)
+
+	// (GET /v1/product/{id})
+	ServiceSwallowGetProduct(c *gin.Context, id int32)
+
+	// (GET /v1/products)
+	ServiceSwallowGetProducts(c *gin.Context)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -19,6 +52,77 @@ type ServerInterfaceWrapper struct {
 }
 
 type MiddlewareFunc func(c *gin.Context)
+
+// ServiceSwallowUpsertProduct operation middleware
+func (siw *ServerInterfaceWrapper) ServiceSwallowUpsertProduct(c *gin.Context) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ServiceSwallowUpsertProductParams
+
+	// ------------- Optional query parameter "id" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "id", c.Request.URL.Query(), &params.Id)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter id: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// ------------- Optional query parameter "jsonMetadata" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "jsonMetadata", c.Request.URL.Query(), &params.JsonMetadata)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter jsonMetadata: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceSwallowUpsertProduct(c, params)
+}
+
+// ServiceSwallowGetProduct operation middleware
+func (siw *ServerInterfaceWrapper) ServiceSwallowGetProduct(c *gin.Context) {
+
+	var err error
+
+	// ------------- Path parameter "id" -------------
+	var id int32
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", c.Param("id"), &id, runtime.BindStyledParameterOptions{Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter id: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceSwallowGetProduct(c, id)
+}
+
+// ServiceSwallowGetProducts operation middleware
+func (siw *ServerInterfaceWrapper) ServiceSwallowGetProducts(c *gin.Context) {
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceSwallowGetProducts(c)
+}
 
 // GinServerOptions provides options for the Gin server.
 type GinServerOptions struct {
@@ -34,5 +138,20 @@ func RegisterHandlers(router gin.IRouter, si ServerInterface) {
 
 // RegisterHandlersWithOptions creates http.Handler with additional options
 func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options GinServerOptions) {
+	errorHandler := options.ErrorHandler
+	if errorHandler == nil {
+		errorHandler = func(c *gin.Context, err error, statusCode int) {
+			c.JSON(statusCode, gin.H{"msg": err.Error()})
+		}
+	}
 
+	wrapper := ServerInterfaceWrapper{
+		Handler:            si,
+		HandlerMiddlewares: options.Middlewares,
+		ErrorHandler:       errorHandler,
+	}
+
+	router.POST(options.BaseURL+"/v1/product", wrapper.ServiceSwallowUpsertProduct)
+	router.GET(options.BaseURL+"/v1/product/:id", wrapper.ServiceSwallowGetProduct)
+	router.GET(options.BaseURL+"/v1/products", wrapper.ServiceSwallowGetProducts)
 }
