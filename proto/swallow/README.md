@@ -31,7 +31,7 @@ repo: git url to project# Protocol Documentation
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) |  | item ID |
-| description | [string](#string) |  | item description |
+| description | [string](#string) |  | item description, long |
 
 
 

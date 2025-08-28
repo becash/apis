@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package demo;
 
-import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/becash/apis/gen_go/demo";
@@ -19,21 +18,19 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 // use from common
-message ItemIdInt32 {
-  // Filter documents by ID
+message FieldFilter {
+  // Filter documents by ID Field
   int32 id = 1;
 }
 
 
-message Item {
+// Can be Ticket/Reservation
+message Product {
   // item ID
   int32 id = 1 ;
-  // item description
-  string description = 2;
 }
 
-service ServiceDemo {
-  rpc GetOne(ItemIdInt32) returns (Item) {
-    option (google.api.http) = {get: "/v1/item/{id}"};
-  }
+service ServiceSwallow {
+  // Get on product by some field
+  rpc GetProduct(FieldFilter) returns (Product) {}
 }
