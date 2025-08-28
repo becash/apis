@@ -138,27 +138,6 @@ make generate
 
 ```
 
-### GraphQl Schema generation
-
-1. Setup in proto files for each method type of request (Query / Mutation )
-3. To prevent "garbage methods" in graphql schema disable methods that not plain to use in frontend
-3. Generate
-4. Name convention: In query do not use "get" , "get_one", "get_list" or same
-
-4. Example:
-
-```azure
-  import "danielvladco/protobuf/graphql.proto";
-
-rpc ServiceStatus(google.protobuf.Empty) returns (Status){
-        option (danielvladco.protobuf.graphql.rpc) = {
-            type:QUERY, //available default is MUTATION
-            ignore:false, // default value
-            name:"Name in graph scheme" //default is service name + method name
-        };
-};
-```
-
 ### Local Custom Build
 
 to work with custom tag or branch run ( in related project):
