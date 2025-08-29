@@ -32,6 +32,7 @@ echo "---------------------GENERATE OPENAPI FILES-------------------------------
 for dir in ./gen_go/*/; do
   PROJECT="${dir%/}"           # remove trailing slash
   PROJECT="${PROJECT##*/}"     # keep only the last path component
+  [ "$PROJECT" = "common" ] && continue
   mkdir ${DESTDIR_OPENAPI}/${PROJECT}
   docker run -v ${PWD}:/root/data protoc-go \
       protoc \

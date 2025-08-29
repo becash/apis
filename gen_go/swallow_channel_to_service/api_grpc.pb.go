@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -20,9 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceToSwallow_GetProduct_FullMethodName    = "/swallow_channel_to_service.ServiceToSwallow/GetProduct"
-	ServiceToSwallow_GetProducts_FullMethodName   = "/swallow_channel_to_service.ServiceToSwallow/GetProducts"
-	ServiceToSwallow_UpsertProduct_FullMethodName = "/swallow_channel_to_service.ServiceToSwallow/UpsertProduct"
+	ServiceToSwallow_GetAvailabilityOfProduct_FullMethodName = "/swallow_channel_to_service.ServiceToSwallow/GetAvailabilityOfProduct"
 )
 
 // ServiceToSwallowClient is the client API for ServiceToSwallow service.
@@ -30,9 +27,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceToSwallowClient interface {
 	// Get on product by some field
-	GetProduct(ctx context.Context, in *FieldFilter, opts ...grpc.CallOption) (*Product, error)
-	GetProducts(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Product, error)
-	UpsertProduct(ctx context.Context, in *UpsertProductRequest, opts ...grpc.CallOption) (*Product, error)
+	GetAvailabilityOfProduct(ctx context.Context, in *ProductAvailabilitiesRequest, opts ...grpc.CallOption) (*Availabilities, error)
 }
 
 type serviceToSwallowClient struct {
@@ -43,30 +38,10 @@ func NewServiceToSwallowClient(cc grpc.ClientConnInterface) ServiceToSwallowClie
 	return &serviceToSwallowClient{cc}
 }
 
-func (c *serviceToSwallowClient) GetProduct(ctx context.Context, in *FieldFilter, opts ...grpc.CallOption) (*Product, error) {
+func (c *serviceToSwallowClient) GetAvailabilityOfProduct(ctx context.Context, in *ProductAvailabilitiesRequest, opts ...grpc.CallOption) (*Availabilities, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Product)
-	err := c.cc.Invoke(ctx, ServiceToSwallow_GetProduct_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceToSwallowClient) GetProducts(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Product, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Product)
-	err := c.cc.Invoke(ctx, ServiceToSwallow_GetProducts_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceToSwallowClient) UpsertProduct(ctx context.Context, in *UpsertProductRequest, opts ...grpc.CallOption) (*Product, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Product)
-	err := c.cc.Invoke(ctx, ServiceToSwallow_UpsertProduct_FullMethodName, in, out, cOpts...)
+	out := new(Availabilities)
+	err := c.cc.Invoke(ctx, ServiceToSwallow_GetAvailabilityOfProduct_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,9 +53,7 @@ func (c *serviceToSwallowClient) UpsertProduct(ctx context.Context, in *UpsertPr
 // for forward compatibility.
 type ServiceToSwallowServer interface {
 	// Get on product by some field
-	GetProduct(context.Context, *FieldFilter) (*Product, error)
-	GetProducts(context.Context, *emptypb.Empty) (*Product, error)
-	UpsertProduct(context.Context, *UpsertProductRequest) (*Product, error)
+	GetAvailabilityOfProduct(context.Context, *ProductAvailabilitiesRequest) (*Availabilities, error)
 	mustEmbedUnimplementedServiceToSwallowServer()
 }
 
@@ -91,14 +64,8 @@ type ServiceToSwallowServer interface {
 // pointer dereference when methods are called.
 type UnimplementedServiceToSwallowServer struct{}
 
-func (UnimplementedServiceToSwallowServer) GetProduct(context.Context, *FieldFilter) (*Product, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProduct not implemented")
-}
-func (UnimplementedServiceToSwallowServer) GetProducts(context.Context, *emptypb.Empty) (*Product, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProducts not implemented")
-}
-func (UnimplementedServiceToSwallowServer) UpsertProduct(context.Context, *UpsertProductRequest) (*Product, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpsertProduct not implemented")
+func (UnimplementedServiceToSwallowServer) GetAvailabilityOfProduct(context.Context, *ProductAvailabilitiesRequest) (*Availabilities, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAvailabilityOfProduct not implemented")
 }
 func (UnimplementedServiceToSwallowServer) mustEmbedUnimplementedServiceToSwallowServer() {}
 func (UnimplementedServiceToSwallowServer) testEmbeddedByValue()                          {}
@@ -121,56 +88,20 @@ func RegisterServiceToSwallowServer(s grpc.ServiceRegistrar, srv ServiceToSwallo
 	s.RegisterService(&ServiceToSwallow_ServiceDesc, srv)
 }
 
-func _ServiceToSwallow_GetProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FieldFilter)
+func _ServiceToSwallow_GetAvailabilityOfProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductAvailabilitiesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceToSwallowServer).GetProduct(ctx, in)
+		return srv.(ServiceToSwallowServer).GetAvailabilityOfProduct(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceToSwallow_GetProduct_FullMethodName,
+		FullMethod: ServiceToSwallow_GetAvailabilityOfProduct_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceToSwallowServer).GetProduct(ctx, req.(*FieldFilter))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceToSwallow_GetProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceToSwallowServer).GetProducts(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceToSwallow_GetProducts_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceToSwallowServer).GetProducts(ctx, req.(*emptypb.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceToSwallow_UpsertProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpsertProductRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceToSwallowServer).UpsertProduct(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceToSwallow_UpsertProduct_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceToSwallowServer).UpsertProduct(ctx, req.(*UpsertProductRequest))
+		return srv.(ServiceToSwallowServer).GetAvailabilityOfProduct(ctx, req.(*ProductAvailabilitiesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -183,16 +114,8 @@ var ServiceToSwallow_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ServiceToSwallowServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetProduct",
-			Handler:    _ServiceToSwallow_GetProduct_Handler,
-		},
-		{
-			MethodName: "GetProducts",
-			Handler:    _ServiceToSwallow_GetProducts_Handler,
-		},
-		{
-			MethodName: "UpsertProduct",
-			Handler:    _ServiceToSwallow_UpsertProduct_Handler,
+			MethodName: "GetAvailabilityOfProduct",
+			Handler:    _ServiceToSwallow_GetAvailabilityOfProduct_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

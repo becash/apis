@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package common;
+
+option go_package = "github.com/becash/apis/gen_go/common";
+
+enum Currency {
+  CURRENCY_UNSPECIFIED = 0;
+  MDL = 1;
+  USD = 2;
+  EUR = 3;
+}

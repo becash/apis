@@ -6,13 +6,14 @@ package swallow_channel_to_service
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/oapi-codegen/runtime"
 )
 
-// SwallowChannelToServiceProduct Can be Ticket/Reservation
-type SwallowChannelToServiceProduct struct {
+// SwallowChannelFromServiceProduct Can be Ticket/Reservation
+type SwallowChannelFromServiceProduct struct {
 	// Id item ID
 	Id *int32 `json:"id,omitempty"`
 
@@ -21,8 +22,21 @@ type SwallowChannelToServiceProduct struct {
 	JsonMetadata *string `json:"jsonMetadata,omitempty"`
 }
 
-// ServiceToSwallowUpsertProductParams defines parameters for ServiceToSwallowUpsertProduct.
-type ServiceToSwallowUpsertProductParams struct {
+// SwallowChannelToServiceAvailabilities defines model for swallow_channel_to_service.Availabilities.
+type SwallowChannelToServiceAvailabilities struct {
+	Count *string                              `json:"count,omitempty"`
+	Data  *SwallowChannelToServiceAvailability `json:"data,omitempty"`
+}
+
+// SwallowChannelToServiceAvailability defines model for swallow_channel_to_service.Availability.
+type SwallowChannelToServiceAvailability struct {
+	Currency  *int       `json:"currency,omitempty"`
+	DateTime  *time.Time `json:"dateTime,omitempty"`
+	ProductId *int32     `json:"productId,omitempty"`
+}
+
+// ServiceFromSwallowUpsertProductParams defines parameters for ServiceFromSwallowUpsertProduct.
+type ServiceFromSwallowUpsertProductParams struct {
 	// Id item ID, if filed exist: Update else Create
 	Id *int32 `form:"id,omitempty" json:"id,omitempty"`
 
@@ -31,17 +45,26 @@ type ServiceToSwallowUpsertProductParams struct {
 	JsonMetadata *string `form:"jsonMetadata,omitempty" json:"jsonMetadata,omitempty"`
 }
 
+// ServiceToSwallowGetAvailabilityOfProductParams defines parameters for ServiceToSwallowGetAvailabilityOfProduct.
+type ServiceToSwallowGetAvailabilityOfProductParams struct {
+	RangeGte *time.Time `form:"range.gte,omitempty" json:"range.gte,omitempty"`
+	RangeLte *time.Time `form:"range.lte,omitempty" json:"range.lte,omitempty"`
+}
+
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 
 	// (POST /v1/product)
-	ServiceToSwallowUpsertProduct(c *gin.Context, params ServiceToSwallowUpsertProductParams)
+	ServiceFromSwallowUpsertProduct(c *gin.Context, params ServiceFromSwallowUpsertProductParams)
+
+	// (GET /v1/product-availabilities/{productId})
+	ServiceToSwallowGetAvailabilityOfProduct(c *gin.Context, productId int32, params ServiceToSwallowGetAvailabilityOfProductParams)
 
 	// (GET /v1/product/{id})
-	ServiceToSwallowGetProduct(c *gin.Context, id int32)
+	ServiceFromSwallowGetProduct(c *gin.Context, id int32)
 
 	// (GET /v1/products)
-	ServiceToSwallowGetProducts(c *gin.Context)
+	ServiceFromSwallowGetProducts(c *gin.Context)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -53,13 +76,13 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(c *gin.Context)
 
-// ServiceToSwallowUpsertProduct operation middleware
-func (siw *ServerInterfaceWrapper) ServiceToSwallowUpsertProduct(c *gin.Context) {
+// ServiceFromSwallowUpsertProduct operation middleware
+func (siw *ServerInterfaceWrapper) ServiceFromSwallowUpsertProduct(c *gin.Context) {
 
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params ServiceToSwallowUpsertProductParams
+	var params ServiceFromSwallowUpsertProductParams
 
 	// ------------- Optional query parameter "id" -------------
 
@@ -84,11 +107,54 @@ func (siw *ServerInterfaceWrapper) ServiceToSwallowUpsertProduct(c *gin.Context)
 		}
 	}
 
-	siw.Handler.ServiceToSwallowUpsertProduct(c, params)
+	siw.Handler.ServiceFromSwallowUpsertProduct(c, params)
 }
 
-// ServiceToSwallowGetProduct operation middleware
-func (siw *ServerInterfaceWrapper) ServiceToSwallowGetProduct(c *gin.Context) {
+// ServiceToSwallowGetAvailabilityOfProduct operation middleware
+func (siw *ServerInterfaceWrapper) ServiceToSwallowGetAvailabilityOfProduct(c *gin.Context) {
+
+	var err error
+
+	// ------------- Path parameter "productId" -------------
+	var productId int32
+
+	err = runtime.BindStyledParameterWithOptions("simple", "productId", c.Param("productId"), &productId, runtime.BindStyledParameterOptions{Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter productId: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ServiceToSwallowGetAvailabilityOfProductParams
+
+	// ------------- Optional query parameter "range.gte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "range.gte", c.Request.URL.Query(), &params.RangeGte)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter range.gte: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// ------------- Optional query parameter "range.lte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "range.lte", c.Request.URL.Query(), &params.RangeLte)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter range.lte: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceToSwallowGetAvailabilityOfProduct(c, productId, params)
+}
+
+// ServiceFromSwallowGetProduct operation middleware
+func (siw *ServerInterfaceWrapper) ServiceFromSwallowGetProduct(c *gin.Context) {
 
 	var err error
 
@@ -108,11 +174,11 @@ func (siw *ServerInterfaceWrapper) ServiceToSwallowGetProduct(c *gin.Context) {
 		}
 	}
 
-	siw.Handler.ServiceToSwallowGetProduct(c, id)
+	siw.Handler.ServiceFromSwallowGetProduct(c, id)
 }
 
-// ServiceToSwallowGetProducts operation middleware
-func (siw *ServerInterfaceWrapper) ServiceToSwallowGetProducts(c *gin.Context) {
+// ServiceFromSwallowGetProducts operation middleware
+func (siw *ServerInterfaceWrapper) ServiceFromSwallowGetProducts(c *gin.Context) {
 
 	for _, middleware := range siw.HandlerMiddlewares {
 		middleware(c)
@@ -121,7 +187,7 @@ func (siw *ServerInterfaceWrapper) ServiceToSwallowGetProducts(c *gin.Context) {
 		}
 	}
 
-	siw.Handler.ServiceToSwallowGetProducts(c)
+	siw.Handler.ServiceFromSwallowGetProducts(c)
 }
 
 // GinServerOptions provides options for the Gin server.
@@ -151,7 +217,8 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 		ErrorHandler:       errorHandler,
 	}
 
-	router.POST(options.BaseURL+"/v1/product", wrapper.ServiceToSwallowUpsertProduct)
-	router.GET(options.BaseURL+"/v1/product/:id", wrapper.ServiceToSwallowGetProduct)
-	router.GET(options.BaseURL+"/v1/products", wrapper.ServiceToSwallowGetProducts)
+	router.POST(options.BaseURL+"/v1/product", wrapper.ServiceFromSwallowUpsertProduct)
+	router.GET(options.BaseURL+"/v1/product-availabilities/:productId", wrapper.ServiceToSwallowGetAvailabilityOfProduct)
+	router.GET(options.BaseURL+"/v1/product/:id", wrapper.ServiceFromSwallowGetProduct)
+	router.GET(options.BaseURL+"/v1/products", wrapper.ServiceFromSwallowGetProducts)
 }

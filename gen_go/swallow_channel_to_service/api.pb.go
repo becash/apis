@@ -11,9 +11,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	reflect "reflect"
-	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -24,271 +22,27 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// use from common
-type FieldFilter struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Filter documents by ID Field
-	Id            int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *FieldFilter) Reset() {
-	*x = FieldFilter{}
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *FieldFilter) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*FieldFilter) ProtoMessage() {}
-
-func (x *FieldFilter) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use FieldFilter.ProtoReflect.Descriptor instead.
-func (*FieldFilter) Descriptor() ([]byte, []int) {
-	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *FieldFilter) GetId() int32 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-// Can be Ticket/Reservation
-type Product struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// item ID
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	// client side, data, now we not using them,
-	// but in future if field will participate to internal logic need to be added to Product fields
-	JsonMetadata  string `protobuf:"bytes,2,opt,name=json_metadata,json=jsonMetadata,proto3" json:"json_metadata,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Product) Reset() {
-	*x = Product{}
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Product) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Product) ProtoMessage() {}
-
-func (x *Product) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Product.ProtoReflect.Descriptor instead.
-func (*Product) Descriptor() ([]byte, []int) {
-	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *Product) GetId() int32 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *Product) GetJsonMetadata() string {
-	if x != nil {
-		return x.JsonMetadata
-	}
-	return ""
-}
-
-type Products struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Data          []*Product             `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
-	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Products) Reset() {
-	*x = Products{}
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Products) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Products) ProtoMessage() {}
-
-func (x *Products) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Products.ProtoReflect.Descriptor instead.
-func (*Products) Descriptor() ([]byte, []int) {
-	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *Products) GetData() []*Product {
-	if x != nil {
-		return x.Data
-	}
-	return nil
-}
-
-func (x *Products) GetCount() int64 {
-	if x != nil {
-		return x.Count
-	}
-	return 0
-}
-
-type UpsertProductRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// item ID, if filed exist: Update else Create
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	// client side, data, now we not using them,
-	// but in future if field will participate to internal logic need to be added to Product fields
-	JsonMetadata  string `protobuf:"bytes,2,opt,name=json_metadata,json=jsonMetadata,proto3" json:"json_metadata,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpsertProductRequest) Reset() {
-	*x = UpsertProductRequest{}
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpsertProductRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpsertProductRequest) ProtoMessage() {}
-
-func (x *UpsertProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_channel_to_service_api_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpsertProductRequest.ProtoReflect.Descriptor instead.
-func (*UpsertProductRequest) Descriptor() ([]byte, []int) {
-	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *UpsertProductRequest) GetId() int32 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *UpsertProductRequest) GetJsonMetadata() string {
-	if x != nil {
-		return x.JsonMetadata
-	}
-	return ""
-}
-
 var File_swallow_channel_to_service_api_proto protoreflect.FileDescriptor
 
 const file_swallow_channel_to_service_api_proto_rawDesc = "" +
 	"\n" +
-	"$swallow_channel_to_service/api.proto\x12\x1aswallow_channel_to_service\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1d\n" +
-	"\vFieldFilter\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\"C\n" +
-	"\aProduct\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12(\n" +
-	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata\"Y\n" +
-	"\bProducts\x127\n" +
-	"\x04data\x18\x01 \x03(\v2#.swallow_channel_to_service.ProductR\x04data\x12\x14\n" +
-	"\x05count\x18\x02 \x01(\x03R\x05count\"P\n" +
-	"\x14UpsertProductRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12(\n" +
-	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata2\xe7\x02\n" +
-	"\x10ServiceToSwallow\x12t\n" +
-	"\n" +
-	"GetProduct\x12'.swallow_channel_to_service.FieldFilter\x1a#.swallow_channel_to_service.Product\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/product/{id}\x12`\n" +
-	"\vGetProducts\x12\x16.google.protobuf.Empty\x1a#.swallow_channel_to_service.Product\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/products\x12{\n" +
-	"\rUpsertProduct\x120.swallow_channel_to_service.UpsertProductRequest\x1a#.swallow_channel_to_service.Product\"\x13\x82\xd3\xe4\x93\x02\r\"\v/v1/productB\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
+	"$swallow_channel_to_service/api.proto\x12\x1aswallow_channel_to_service\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a)swallow_channel_to_service/messages.proto2\xc6\x01\n" +
+	"\x10ServiceToSwallow\x12\xb1\x01\n" +
+	"\x18GetAvailabilityOfProduct\x128.swallow_channel_to_service.ProductAvailabilitiesRequest\x1a*.swallow_channel_to_service.Availabilities\"/\x82\xd3\xe4\x93\x02)\x12'/v1/product-availabilities/{product_id}B\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
 	"bSwallow Service API Channel, Direction from External source ( is client ) to US service ( server )\x12!HTTP/JSON API for Swallow service2\x030.1*\x01\x012\x10application/json:\x10application/jsonZ8github.com/becash/apis/gen_go/swallow_channel_to_serviceb\x06proto3"
 
-var (
-	file_swallow_channel_to_service_api_proto_rawDescOnce sync.Once
-	file_swallow_channel_to_service_api_proto_rawDescData []byte
-)
-
-func file_swallow_channel_to_service_api_proto_rawDescGZIP() []byte {
-	file_swallow_channel_to_service_api_proto_rawDescOnce.Do(func() {
-		file_swallow_channel_to_service_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_swallow_channel_to_service_api_proto_rawDesc), len(file_swallow_channel_to_service_api_proto_rawDesc)))
-	})
-	return file_swallow_channel_to_service_api_proto_rawDescData
-}
-
-var file_swallow_channel_to_service_api_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_swallow_channel_to_service_api_proto_goTypes = []any{
-	(*FieldFilter)(nil),          // 0: swallow_channel_to_service.FieldFilter
-	(*Product)(nil),              // 1: swallow_channel_to_service.Product
-	(*Products)(nil),             // 2: swallow_channel_to_service.Products
-	(*UpsertProductRequest)(nil), // 3: swallow_channel_to_service.UpsertProductRequest
-	(*emptypb.Empty)(nil),        // 4: google.protobuf.Empty
+	(*ProductAvailabilitiesRequest)(nil), // 0: swallow_channel_to_service.ProductAvailabilitiesRequest
+	(*Availabilities)(nil),               // 1: swallow_channel_to_service.Availabilities
 }
 var file_swallow_channel_to_service_api_proto_depIdxs = []int32{
-	1, // 0: swallow_channel_to_service.Products.data:type_name -> swallow_channel_to_service.Product
-	0, // 1: swallow_channel_to_service.ServiceToSwallow.GetProduct:input_type -> swallow_channel_to_service.FieldFilter
-	4, // 2: swallow_channel_to_service.ServiceToSwallow.GetProducts:input_type -> google.protobuf.Empty
-	3, // 3: swallow_channel_to_service.ServiceToSwallow.UpsertProduct:input_type -> swallow_channel_to_service.UpsertProductRequest
-	1, // 4: swallow_channel_to_service.ServiceToSwallow.GetProduct:output_type -> swallow_channel_to_service.Product
-	1, // 5: swallow_channel_to_service.ServiceToSwallow.GetProducts:output_type -> swallow_channel_to_service.Product
-	1, // 6: swallow_channel_to_service.ServiceToSwallow.UpsertProduct:output_type -> swallow_channel_to_service.Product
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 0: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:input_type -> swallow_channel_to_service.ProductAvailabilitiesRequest
+	1, // 1: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:output_type -> swallow_channel_to_service.Availabilities
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_swallow_channel_to_service_api_proto_init() }
@@ -296,19 +50,19 @@ func file_swallow_channel_to_service_api_proto_init() {
 	if File_swallow_channel_to_service_api_proto != nil {
 		return
 	}
+	file_swallow_channel_to_service_messages_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_swallow_channel_to_service_api_proto_rawDesc), len(file_swallow_channel_to_service_api_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_swallow_channel_to_service_api_proto_goTypes,
 		DependencyIndexes: file_swallow_channel_to_service_api_proto_depIdxs,
-		MessageInfos:      file_swallow_channel_to_service_api_proto_msgTypes,
 	}.Build()
 	File_swallow_channel_to_service_api_proto = out.File
 	file_swallow_channel_to_service_api_proto_goTypes = nil

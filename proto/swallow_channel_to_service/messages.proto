@@ -3,8 +3,9 @@ syntax = "proto3";
 package swallow_channel_to_service;
 
 import "protoc-gen-openapiv2/options/annotations.proto";
-import "google/api/annotations.proto";
-import "swallow_channel_to_service/messages.proto";
+import "common/range.proto";
+import "common/currencies.proto";
+import "google/protobuf/timestamp.proto";
 option go_package = "github.com/becash/apis/gen_go/swallow_channel_to_service";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
@@ -18,9 +19,18 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   produces: "application/json";
 };
 
-service ServiceToSwallow {
-  // Get on product by some field
-  rpc GetAvailabilityOfProduct(ProductAvailabilitiesRequest) returns (Availabilities) {
-    option (google.api.http) = {get: "/v1/product-availabilities/{product_id}"};
-  }
+message ProductAvailabilitiesRequest {
+  int32 product_id = 1;
+  common.DateRange range = 2;
+}
+
+message Availability {
+  int32 product_id = 1;
+  google.protobuf.Timestamp date_time = 2;
+  common.Currency currency = 3;
+}
+
+message Availabilities {
+  Availability data = 1;
+  int64 count = 2;
 }
