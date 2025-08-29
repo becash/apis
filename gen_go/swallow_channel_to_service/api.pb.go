@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.8
 // 	protoc        v6.31.1
-// source: swallow/api.proto
+// source: swallow_channel_to_service/api.proto
 
-package swallow
+package swallow_channel_to_service
 
 import (
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
@@ -35,7 +35,7 @@ type FieldFilter struct {
 
 func (x *FieldFilter) Reset() {
 	*x = FieldFilter{}
-	mi := &file_swallow_api_proto_msgTypes[0]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -47,7 +47,7 @@ func (x *FieldFilter) String() string {
 func (*FieldFilter) ProtoMessage() {}
 
 func (x *FieldFilter) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_api_proto_msgTypes[0]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -60,7 +60,7 @@ func (x *FieldFilter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FieldFilter.ProtoReflect.Descriptor instead.
 func (*FieldFilter) Descriptor() ([]byte, []int) {
-	return file_swallow_api_proto_rawDescGZIP(), []int{0}
+	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *FieldFilter) GetId() int32 {
@@ -84,7 +84,7 @@ type Product struct {
 
 func (x *Product) Reset() {
 	*x = Product{}
-	mi := &file_swallow_api_proto_msgTypes[1]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -96,7 +96,7 @@ func (x *Product) String() string {
 func (*Product) ProtoMessage() {}
 
 func (x *Product) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_api_proto_msgTypes[1]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -109,7 +109,7 @@ func (x *Product) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Product.ProtoReflect.Descriptor instead.
 func (*Product) Descriptor() ([]byte, []int) {
-	return file_swallow_api_proto_rawDescGZIP(), []int{1}
+	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Product) GetId() int32 {
@@ -136,7 +136,7 @@ type Products struct {
 
 func (x *Products) Reset() {
 	*x = Products{}
-	mi := &file_swallow_api_proto_msgTypes[2]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -148,7 +148,7 @@ func (x *Products) String() string {
 func (*Products) ProtoMessage() {}
 
 func (x *Products) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_api_proto_msgTypes[2]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -161,7 +161,7 @@ func (x *Products) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Products.ProtoReflect.Descriptor instead.
 func (*Products) Descriptor() ([]byte, []int) {
-	return file_swallow_api_proto_rawDescGZIP(), []int{2}
+	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Products) GetData() []*Product {
@@ -191,7 +191,7 @@ type UpsertProductRequest struct {
 
 func (x *UpsertProductRequest) Reset() {
 	*x = UpsertProductRequest{}
-	mi := &file_swallow_api_proto_msgTypes[3]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -203,7 +203,7 @@ func (x *UpsertProductRequest) String() string {
 func (*UpsertProductRequest) ProtoMessage() {}
 
 func (x *UpsertProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_api_proto_msgTypes[3]
+	mi := &file_swallow_channel_to_service_api_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -216,7 +216,7 @@ func (x *UpsertProductRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpsertProductRequest.ProtoReflect.Descriptor instead.
 func (*UpsertProductRequest) Descriptor() ([]byte, []int) {
-	return file_swallow_api_proto_rawDescGZIP(), []int{3}
+	return file_swallow_channel_to_service_api_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *UpsertProductRequest) GetId() int32 {
@@ -233,57 +233,57 @@ func (x *UpsertProductRequest) GetJsonMetadata() string {
 	return ""
 }
 
-var File_swallow_api_proto protoreflect.FileDescriptor
+var File_swallow_channel_to_service_api_proto protoreflect.FileDescriptor
 
-const file_swallow_api_proto_rawDesc = "" +
+const file_swallow_channel_to_service_api_proto_rawDesc = "" +
 	"\n" +
-	"\x11swallow/api.proto\x12\aswallow\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1d\n" +
+	"$swallow_channel_to_service/api.proto\x12\x1aswallow_channel_to_service\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1d\n" +
 	"\vFieldFilter\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\"C\n" +
 	"\aProduct\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12(\n" +
-	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata\"F\n" +
-	"\bProducts\x12$\n" +
-	"\x04data\x18\x01 \x03(\v2\x10.swallow.ProductR\x04data\x12\x14\n" +
+	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata\"Y\n" +
+	"\bProducts\x127\n" +
+	"\x04data\x18\x01 \x03(\v2#.swallow_channel_to_service.ProductR\x04data\x12\x14\n" +
 	"\x05count\x18\x02 \x01(\x03R\x05count\"P\n" +
 	"\x14UpsertProductRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12(\n" +
-	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata2\x86\x02\n" +
-	"\x0eServiceSwallow\x12N\n" +
+	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata2\xe5\x02\n" +
+	"\x0eServiceSwallow\x12t\n" +
 	"\n" +
-	"GetProduct\x12\x14.swallow.FieldFilter\x1a\x10.swallow.Product\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/product/{id}\x12M\n" +
-	"\vGetProducts\x12\x16.google.protobuf.Empty\x1a\x10.swallow.Product\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/products\x12U\n" +
-	"\rUpsertProduct\x12\x1d.swallow.UpsertProductRequest\x1a\x10.swallow.Product\"\x13\x82\xd3\xe4\x93\x02\r\"\v/v1/productB\x90\x01\x92Af\x12=\n" +
-	"\x13Swallow Service API\x12!HTTP/JSON API for Swallow service2\x030.1*\x01\x012\x10application/json:\x10application/jsonZ%github.com/becash/apis/gen_go/swallowb\x06proto3"
+	"GetProduct\x12'.swallow_channel_to_service.FieldFilter\x1a#.swallow_channel_to_service.Product\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/product/{id}\x12`\n" +
+	"\vGetProducts\x12\x16.google.protobuf.Empty\x1a#.swallow_channel_to_service.Product\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/products\x12{\n" +
+	"\rUpsertProduct\x120.swallow_channel_to_service.UpsertProductRequest\x1a#.swallow_channel_to_service.Product\"\x13\x82\xd3\xe4\x93\x02\r\"\v/v1/productB\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
+	"bSwallow Service API Channel, Direction from External source ( is client ) to US service ( server )\x12!HTTP/JSON API for Swallow service2\x030.1*\x01\x012\x10application/json:\x10application/jsonZ8github.com/becash/apis/gen_go/swallow_channel_to_serviceb\x06proto3"
 
 var (
-	file_swallow_api_proto_rawDescOnce sync.Once
-	file_swallow_api_proto_rawDescData []byte
+	file_swallow_channel_to_service_api_proto_rawDescOnce sync.Once
+	file_swallow_channel_to_service_api_proto_rawDescData []byte
 )
 
-func file_swallow_api_proto_rawDescGZIP() []byte {
-	file_swallow_api_proto_rawDescOnce.Do(func() {
-		file_swallow_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_swallow_api_proto_rawDesc), len(file_swallow_api_proto_rawDesc)))
+func file_swallow_channel_to_service_api_proto_rawDescGZIP() []byte {
+	file_swallow_channel_to_service_api_proto_rawDescOnce.Do(func() {
+		file_swallow_channel_to_service_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_swallow_channel_to_service_api_proto_rawDesc), len(file_swallow_channel_to_service_api_proto_rawDesc)))
 	})
-	return file_swallow_api_proto_rawDescData
+	return file_swallow_channel_to_service_api_proto_rawDescData
 }
 
-var file_swallow_api_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_swallow_api_proto_goTypes = []any{
-	(*FieldFilter)(nil),          // 0: swallow.FieldFilter
-	(*Product)(nil),              // 1: swallow.Product
-	(*Products)(nil),             // 2: swallow.Products
-	(*UpsertProductRequest)(nil), // 3: swallow.UpsertProductRequest
+var file_swallow_channel_to_service_api_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_swallow_channel_to_service_api_proto_goTypes = []any{
+	(*FieldFilter)(nil),          // 0: swallow_channel_to_service.FieldFilter
+	(*Product)(nil),              // 1: swallow_channel_to_service.Product
+	(*Products)(nil),             // 2: swallow_channel_to_service.Products
+	(*UpsertProductRequest)(nil), // 3: swallow_channel_to_service.UpsertProductRequest
 	(*emptypb.Empty)(nil),        // 4: google.protobuf.Empty
 }
-var file_swallow_api_proto_depIdxs = []int32{
-	1, // 0: swallow.Products.data:type_name -> swallow.Product
-	0, // 1: swallow.ServiceSwallow.GetProduct:input_type -> swallow.FieldFilter
-	4, // 2: swallow.ServiceSwallow.GetProducts:input_type -> google.protobuf.Empty
-	3, // 3: swallow.ServiceSwallow.UpsertProduct:input_type -> swallow.UpsertProductRequest
-	1, // 4: swallow.ServiceSwallow.GetProduct:output_type -> swallow.Product
-	1, // 5: swallow.ServiceSwallow.GetProducts:output_type -> swallow.Product
-	1, // 6: swallow.ServiceSwallow.UpsertProduct:output_type -> swallow.Product
+var file_swallow_channel_to_service_api_proto_depIdxs = []int32{
+	1, // 0: swallow_channel_to_service.Products.data:type_name -> swallow_channel_to_service.Product
+	0, // 1: swallow_channel_to_service.ServiceSwallow.GetProduct:input_type -> swallow_channel_to_service.FieldFilter
+	4, // 2: swallow_channel_to_service.ServiceSwallow.GetProducts:input_type -> google.protobuf.Empty
+	3, // 3: swallow_channel_to_service.ServiceSwallow.UpsertProduct:input_type -> swallow_channel_to_service.UpsertProductRequest
+	1, // 4: swallow_channel_to_service.ServiceSwallow.GetProduct:output_type -> swallow_channel_to_service.Product
+	1, // 5: swallow_channel_to_service.ServiceSwallow.GetProducts:output_type -> swallow_channel_to_service.Product
+	1, // 6: swallow_channel_to_service.ServiceSwallow.UpsertProduct:output_type -> swallow_channel_to_service.Product
 	4, // [4:7] is the sub-list for method output_type
 	1, // [1:4] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -291,26 +291,26 @@ var file_swallow_api_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_swallow_api_proto_init() }
-func file_swallow_api_proto_init() {
-	if File_swallow_api_proto != nil {
+func init() { file_swallow_channel_to_service_api_proto_init() }
+func file_swallow_channel_to_service_api_proto_init() {
+	if File_swallow_channel_to_service_api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_swallow_api_proto_rawDesc), len(file_swallow_api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_swallow_channel_to_service_api_proto_rawDesc), len(file_swallow_channel_to_service_api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_swallow_api_proto_goTypes,
-		DependencyIndexes: file_swallow_api_proto_depIdxs,
-		MessageInfos:      file_swallow_api_proto_msgTypes,
+		GoTypes:           file_swallow_channel_to_service_api_proto_goTypes,
+		DependencyIndexes: file_swallow_channel_to_service_api_proto_depIdxs,
+		MessageInfos:      file_swallow_channel_to_service_api_proto_msgTypes,
 	}.Build()
-	File_swallow_api_proto = out.File
-	file_swallow_api_proto_goTypes = nil
-	file_swallow_api_proto_depIdxs = nil
+	File_swallow_channel_to_service_api_proto = out.File
+	file_swallow_channel_to_service_api_proto_goTypes = nil
+	file_swallow_channel_to_service_api_proto_depIdxs = nil
 }

@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.31.1
-// source: swallow/api.proto
+// source: swallow_channel_from_service/api.proto
 
-package swallow
+package swallow_channel_from_service
 
 import (
 	context "context"
@@ -20,9 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceSwallow_GetProduct_FullMethodName    = "/swallow.ServiceSwallow/GetProduct"
-	ServiceSwallow_GetProducts_FullMethodName   = "/swallow.ServiceSwallow/GetProducts"
-	ServiceSwallow_UpsertProduct_FullMethodName = "/swallow.ServiceSwallow/UpsertProduct"
+	ServiceSwallow_GetProduct_FullMethodName    = "/swallow_channel_from_service.ServiceSwallow/GetProduct"
+	ServiceSwallow_GetProducts_FullMethodName   = "/swallow_channel_from_service.ServiceSwallow/GetProducts"
+	ServiceSwallow_UpsertProduct_FullMethodName = "/swallow_channel_from_service.ServiceSwallow/UpsertProduct"
 )
 
 // ServiceSwallowClient is the client API for ServiceSwallow service.
@@ -179,7 +179,7 @@ func _ServiceSwallow_UpsertProduct_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ServiceSwallow_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "swallow.ServiceSwallow",
+	ServiceName: "swallow_channel_from_service.ServiceSwallow",
 	HandlerType: (*ServiceSwallowServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -196,5 +196,5 @@ var ServiceSwallow_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "swallow/api.proto",
+	Metadata: "swallow_channel_from_service/api.proto",
 }

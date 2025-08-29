@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: ServiceSwallow API
+    title: ""
     version: 0.0.1
 paths:
     /v1/product:
@@ -31,7 +31,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow.Product'
+                                $ref: '#/components/schemas/swallow_channel_to_service.Product'
     /v1/product/{id}:
         get:
             tags:
@@ -52,7 +52,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow.Product'
+                                $ref: '#/components/schemas/swallow_channel_to_service.Product'
     /v1/products:
         get:
             tags:
@@ -64,10 +64,23 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow.Product'
+                                $ref: '#/components/schemas/swallow_channel_to_service.Product'
 components:
     schemas:
-        swallow.Product:
+        swallow_channel_from_service.Product:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: item ID
+                    format: int32
+                jsonMetadata:
+                    type: string
+                    description: |-
+                        client side, data, now we not using them,
+                         but in future if field will participate to internal logic need to be added to Product fields
+            description: Can be Ticket/Reservation
+        swallow_channel_to_service.Product:
             type: object
             properties:
                 id:
@@ -81,4 +94,5 @@ components:
                          but in future if field will participate to internal logic need to be added to Product fields
             description: Can be Ticket/Reservation
 tags:
+    - name: ServiceSwallow
     - name: ServiceSwallow

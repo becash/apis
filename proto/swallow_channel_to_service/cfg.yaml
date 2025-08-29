@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/oapi-codegen/oapi-codegen/HEAD/configuration-schema.json
+package: swallow_channel_to_service
+output: ./gen_openapi/swallow_channel_to_service/server_openapi.gen.go
+generate:
+  models: true
+  gin-server: true # we use this server in GATEWAY module,  and open api we give to external side to make queries  to us

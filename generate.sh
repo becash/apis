@@ -28,20 +28,22 @@ docker run -v ${PWD}:/root/data protoc-go \
     --grpc-gateway_opt paths=source_relative \
 		./proto/*/*.proto
 
-echo "---------------------GENERATE OPENAPI FILES ( TODO merge in documentation step )--------------------------------"
-# TODO :  when  eximst  few  project, put  next part in folder iteration
-mkdir ${DESTDIR_OPENAPI}/swallow
-docker run -v ${PWD}:/root/data protoc-go \
-    protoc \
-		--proto_path=proto \
-    --openapi_out=fq_schema_naming=true,default_response=false:${DESTDIR_OPENAPI}/swallow \
-		./proto/*/*.proto
+echo "---------------------GENERATE OPENAPI FILES--------------------------------"
+for dir in ./gen_go/*/; do
+  PROJECT="${dir%/}"           # remove trailing slash
+  PROJECT="${PROJECT##*/}"     # keep only the last path component
+  mkdir ${DESTDIR_OPENAPI}/${PROJECT}
+  docker run -v ${PWD}:/root/data protoc-go \
+      protoc \
+      --proto_path=proto \
+      --openapi_out=fq_schema_naming=true,default_response=false:${DESTDIR_OPENAPI}/${PROJECT} \
+      ./proto/*/*.proto
 
-docker run -v ${PWD}:/root/data protoc-go \
-  oapi-codegen -config ./proto/swallow/cfg.yaml ${DESTDIR_OPENAPI}/swallow/openapi.yaml
+  docker run -v ${PWD}:/root/data protoc-go \
+    oapi-codegen -config ./proto/${PROJECT}/cfg.yaml ${DESTDIR_OPENAPI}/${PROJECT}/openapi.yaml
+done;
 
-
-## Generate documentation, from protofiles
+##TODO Generate documentation, from protofiles
 #echo ---------------------GENERATE DOCUMENTATION-------------------------------
 #for dir in ./gen_go/*/; do
 #  PROJECT="${dir%/}"           # remove trailing slash

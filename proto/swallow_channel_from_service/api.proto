@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package swallow;
+package swallow_channel_from_service;
 
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/becash/apis/gen_go/swallow";
+option go_package = "github.com/becash/apis/gen_go/swallow_channel_from_service";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-    title: "Swallow Service API";
+    title: "Swallow Service API Channel, Direction from Us service ( is client ) to external source ( server )";
     version: "0.1";
     description: "HTTP/JSON API for Swallow service";
   };
