@@ -36,7 +36,7 @@ var (
 	_ = metadata.Join
 )
 
-func request_ServiceSwallow_GetProduct_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceSwallowClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ServiceFromSwallow_GetProduct_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceFromSwallowClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq FieldFilter
 		metadata runtime.ServerMetadata
@@ -57,7 +57,7 @@ func request_ServiceSwallow_GetProduct_0(ctx context.Context, marshaler runtime.
 	return msg, metadata, err
 }
 
-func local_request_ServiceSwallow_GetProduct_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceSwallowServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ServiceFromSwallow_GetProduct_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceFromSwallowServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq FieldFilter
 		metadata runtime.ServerMetadata
@@ -75,7 +75,7 @@ func local_request_ServiceSwallow_GetProduct_0(ctx context.Context, marshaler ru
 	return msg, metadata, err
 }
 
-func request_ServiceSwallow_GetProducts_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceSwallowClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ServiceFromSwallow_GetProducts_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceFromSwallowClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq emptypb.Empty
 		metadata runtime.ServerMetadata
@@ -87,7 +87,7 @@ func request_ServiceSwallow_GetProducts_0(ctx context.Context, marshaler runtime
 	return msg, metadata, err
 }
 
-func local_request_ServiceSwallow_GetProducts_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceSwallowServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ServiceFromSwallow_GetProducts_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceFromSwallowServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq emptypb.Empty
 		metadata runtime.ServerMetadata
@@ -96,9 +96,9 @@ func local_request_ServiceSwallow_GetProducts_0(ctx context.Context, marshaler r
 	return msg, metadata, err
 }
 
-var filter_ServiceSwallow_UpsertProduct_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+var filter_ServiceFromSwallow_UpsertProduct_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 
-func request_ServiceSwallow_UpsertProduct_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceSwallowClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ServiceFromSwallow_UpsertProduct_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceFromSwallowClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq UpsertProductRequest
 		metadata runtime.ServerMetadata
@@ -109,14 +109,14 @@ func request_ServiceSwallow_UpsertProduct_0(ctx context.Context, marshaler runti
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceSwallow_UpsertProduct_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceFromSwallow_UpsertProduct_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := client.UpsertProduct(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 }
 
-func local_request_ServiceSwallow_UpsertProduct_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceSwallowServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ServiceFromSwallow_UpsertProduct_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceFromSwallowServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq UpsertProductRequest
 		metadata runtime.ServerMetadata
@@ -124,86 +124,86 @@ func local_request_ServiceSwallow_UpsertProduct_0(ctx context.Context, marshaler
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceSwallow_UpsertProduct_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceFromSwallow_UpsertProduct_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := server.UpsertProduct(ctx, &protoReq)
 	return msg, metadata, err
 }
 
-// RegisterServiceSwallowHandlerServer registers the http handlers for service ServiceSwallow to "mux".
-// UnaryRPC     :call ServiceSwallowServer directly.
+// RegisterServiceFromSwallowHandlerServer registers the http handlers for service ServiceFromSwallow to "mux".
+// UnaryRPC     :call ServiceFromSwallowServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterServiceSwallowHandlerFromEndpoint instead.
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterServiceFromSwallowHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
-func RegisterServiceSwallowHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ServiceSwallowServer) error {
-	mux.Handle(http.MethodGet, pattern_ServiceSwallow_GetProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+func RegisterServiceFromSwallowHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ServiceFromSwallowServer) error {
+	mux.Handle(http.MethodGet, pattern_ServiceFromSwallow_GetProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/swallow_channel_from_service.ServiceSwallow/GetProduct", runtime.WithHTTPPathPattern("/v1/product/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/swallow_channel_from_service.ServiceFromSwallow/GetProduct", runtime.WithHTTPPathPattern("/v1/product/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceSwallow_GetProduct_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceFromSwallow_GetProduct_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_ServiceSwallow_GetProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceFromSwallow_GetProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodGet, pattern_ServiceSwallow_GetProducts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_ServiceFromSwallow_GetProducts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/swallow_channel_from_service.ServiceSwallow/GetProducts", runtime.WithHTTPPathPattern("/v1/products"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/swallow_channel_from_service.ServiceFromSwallow/GetProducts", runtime.WithHTTPPathPattern("/v1/products"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceSwallow_GetProducts_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceFromSwallow_GetProducts_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_ServiceSwallow_GetProducts_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceFromSwallow_GetProducts_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPost, pattern_ServiceSwallow_UpsertProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_ServiceFromSwallow_UpsertProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/swallow_channel_from_service.ServiceSwallow/UpsertProduct", runtime.WithHTTPPathPattern("/v1/product"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/swallow_channel_from_service.ServiceFromSwallow/UpsertProduct", runtime.WithHTTPPathPattern("/v1/product"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceSwallow_UpsertProduct_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceFromSwallow_UpsertProduct_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_ServiceSwallow_UpsertProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceFromSwallow_UpsertProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
 }
 
-// RegisterServiceSwallowHandlerFromEndpoint is same as RegisterServiceSwallowHandler but
+// RegisterServiceFromSwallowHandlerFromEndpoint is same as RegisterServiceFromSwallowHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterServiceSwallowHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterServiceFromSwallowHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.NewClient(endpoint, opts...)
 	if err != nil {
 		return err
@@ -222,83 +222,83 @@ func RegisterServiceSwallowHandlerFromEndpoint(ctx context.Context, mux *runtime
 			}
 		}()
 	}()
-	return RegisterServiceSwallowHandler(ctx, mux, conn)
+	return RegisterServiceFromSwallowHandler(ctx, mux, conn)
 }
 
-// RegisterServiceSwallowHandler registers the http handlers for service ServiceSwallow to "mux".
+// RegisterServiceFromSwallowHandler registers the http handlers for service ServiceFromSwallow to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterServiceSwallowHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterServiceSwallowHandlerClient(ctx, mux, NewServiceSwallowClient(conn))
+func RegisterServiceFromSwallowHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterServiceFromSwallowHandlerClient(ctx, mux, NewServiceFromSwallowClient(conn))
 }
 
-// RegisterServiceSwallowHandlerClient registers the http handlers for service ServiceSwallow
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "ServiceSwallowClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "ServiceSwallowClient"
+// RegisterServiceFromSwallowHandlerClient registers the http handlers for service ServiceFromSwallow
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "ServiceFromSwallowClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "ServiceFromSwallowClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "ServiceSwallowClient" to call the correct interceptors. This client ignores the HTTP middlewares.
-func RegisterServiceSwallowHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ServiceSwallowClient) error {
-	mux.Handle(http.MethodGet, pattern_ServiceSwallow_GetProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+// "ServiceFromSwallowClient" to call the correct interceptors. This client ignores the HTTP middlewares.
+func RegisterServiceFromSwallowHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ServiceFromSwallowClient) error {
+	mux.Handle(http.MethodGet, pattern_ServiceFromSwallow_GetProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/swallow_channel_from_service.ServiceSwallow/GetProduct", runtime.WithHTTPPathPattern("/v1/product/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/swallow_channel_from_service.ServiceFromSwallow/GetProduct", runtime.WithHTTPPathPattern("/v1/product/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceSwallow_GetProduct_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceFromSwallow_GetProduct_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_ServiceSwallow_GetProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceFromSwallow_GetProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodGet, pattern_ServiceSwallow_GetProducts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_ServiceFromSwallow_GetProducts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/swallow_channel_from_service.ServiceSwallow/GetProducts", runtime.WithHTTPPathPattern("/v1/products"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/swallow_channel_from_service.ServiceFromSwallow/GetProducts", runtime.WithHTTPPathPattern("/v1/products"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceSwallow_GetProducts_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceFromSwallow_GetProducts_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_ServiceSwallow_GetProducts_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceFromSwallow_GetProducts_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPost, pattern_ServiceSwallow_UpsertProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_ServiceFromSwallow_UpsertProduct_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/swallow_channel_from_service.ServiceSwallow/UpsertProduct", runtime.WithHTTPPathPattern("/v1/product"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/swallow_channel_from_service.ServiceFromSwallow/UpsertProduct", runtime.WithHTTPPathPattern("/v1/product"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceSwallow_UpsertProduct_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceFromSwallow_UpsertProduct_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_ServiceSwallow_UpsertProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceFromSwallow_UpsertProduct_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 	return nil
 }
 
 var (
-	pattern_ServiceSwallow_GetProduct_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "product", "id"}, ""))
-	pattern_ServiceSwallow_GetProducts_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "products"}, ""))
-	pattern_ServiceSwallow_UpsertProduct_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "product"}, ""))
+	pattern_ServiceFromSwallow_GetProduct_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "product", "id"}, ""))
+	pattern_ServiceFromSwallow_GetProducts_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "products"}, ""))
+	pattern_ServiceFromSwallow_UpsertProduct_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "product"}, ""))
 )
 
 var (
-	forward_ServiceSwallow_GetProduct_0    = runtime.ForwardResponseMessage
-	forward_ServiceSwallow_GetProducts_0   = runtime.ForwardResponseMessage
-	forward_ServiceSwallow_UpsertProduct_0 = runtime.ForwardResponseMessage
+	forward_ServiceFromSwallow_GetProduct_0    = runtime.ForwardResponseMessage
+	forward_ServiceFromSwallow_GetProducts_0   = runtime.ForwardResponseMessage
+	forward_ServiceFromSwallow_UpsertProduct_0 = runtime.ForwardResponseMessage
 )

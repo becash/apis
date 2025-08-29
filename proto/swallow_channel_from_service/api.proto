@@ -54,7 +54,7 @@ message UpsertProductRequest {
 ;
 }
 
-service ServiceSwallow {
+service ServiceFromSwallow {
   // Get on product by some field
   rpc GetProduct(FieldFilter) returns (Product) {
     option (google.api.http) = {get: "/v1/product/{id}"};

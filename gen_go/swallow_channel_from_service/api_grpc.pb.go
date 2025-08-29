@@ -20,179 +20,179 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceSwallow_GetProduct_FullMethodName    = "/swallow_channel_from_service.ServiceSwallow/GetProduct"
-	ServiceSwallow_GetProducts_FullMethodName   = "/swallow_channel_from_service.ServiceSwallow/GetProducts"
-	ServiceSwallow_UpsertProduct_FullMethodName = "/swallow_channel_from_service.ServiceSwallow/UpsertProduct"
+	ServiceFromSwallow_GetProduct_FullMethodName    = "/swallow_channel_from_service.ServiceFromSwallow/GetProduct"
+	ServiceFromSwallow_GetProducts_FullMethodName   = "/swallow_channel_from_service.ServiceFromSwallow/GetProducts"
+	ServiceFromSwallow_UpsertProduct_FullMethodName = "/swallow_channel_from_service.ServiceFromSwallow/UpsertProduct"
 )
 
-// ServiceSwallowClient is the client API for ServiceSwallow service.
+// ServiceFromSwallowClient is the client API for ServiceFromSwallow service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ServiceSwallowClient interface {
+type ServiceFromSwallowClient interface {
 	// Get on product by some field
 	GetProduct(ctx context.Context, in *FieldFilter, opts ...grpc.CallOption) (*Product, error)
 	GetProducts(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Product, error)
 	UpsertProduct(ctx context.Context, in *UpsertProductRequest, opts ...grpc.CallOption) (*Product, error)
 }
 
-type serviceSwallowClient struct {
+type serviceFromSwallowClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewServiceSwallowClient(cc grpc.ClientConnInterface) ServiceSwallowClient {
-	return &serviceSwallowClient{cc}
+func NewServiceFromSwallowClient(cc grpc.ClientConnInterface) ServiceFromSwallowClient {
+	return &serviceFromSwallowClient{cc}
 }
 
-func (c *serviceSwallowClient) GetProduct(ctx context.Context, in *FieldFilter, opts ...grpc.CallOption) (*Product, error) {
+func (c *serviceFromSwallowClient) GetProduct(ctx context.Context, in *FieldFilter, opts ...grpc.CallOption) (*Product, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Product)
-	err := c.cc.Invoke(ctx, ServiceSwallow_GetProduct_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, ServiceFromSwallow_GetProduct_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceSwallowClient) GetProducts(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Product, error) {
+func (c *serviceFromSwallowClient) GetProducts(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Product, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Product)
-	err := c.cc.Invoke(ctx, ServiceSwallow_GetProducts_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, ServiceFromSwallow_GetProducts_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceSwallowClient) UpsertProduct(ctx context.Context, in *UpsertProductRequest, opts ...grpc.CallOption) (*Product, error) {
+func (c *serviceFromSwallowClient) UpsertProduct(ctx context.Context, in *UpsertProductRequest, opts ...grpc.CallOption) (*Product, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Product)
-	err := c.cc.Invoke(ctx, ServiceSwallow_UpsertProduct_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, ServiceFromSwallow_UpsertProduct_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ServiceSwallowServer is the server API for ServiceSwallow service.
-// All implementations must embed UnimplementedServiceSwallowServer
+// ServiceFromSwallowServer is the server API for ServiceFromSwallow service.
+// All implementations must embed UnimplementedServiceFromSwallowServer
 // for forward compatibility.
-type ServiceSwallowServer interface {
+type ServiceFromSwallowServer interface {
 	// Get on product by some field
 	GetProduct(context.Context, *FieldFilter) (*Product, error)
 	GetProducts(context.Context, *emptypb.Empty) (*Product, error)
 	UpsertProduct(context.Context, *UpsertProductRequest) (*Product, error)
-	mustEmbedUnimplementedServiceSwallowServer()
+	mustEmbedUnimplementedServiceFromSwallowServer()
 }
 
-// UnimplementedServiceSwallowServer must be embedded to have
+// UnimplementedServiceFromSwallowServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedServiceSwallowServer struct{}
+type UnimplementedServiceFromSwallowServer struct{}
 
-func (UnimplementedServiceSwallowServer) GetProduct(context.Context, *FieldFilter) (*Product, error) {
+func (UnimplementedServiceFromSwallowServer) GetProduct(context.Context, *FieldFilter) (*Product, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProduct not implemented")
 }
-func (UnimplementedServiceSwallowServer) GetProducts(context.Context, *emptypb.Empty) (*Product, error) {
+func (UnimplementedServiceFromSwallowServer) GetProducts(context.Context, *emptypb.Empty) (*Product, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProducts not implemented")
 }
-func (UnimplementedServiceSwallowServer) UpsertProduct(context.Context, *UpsertProductRequest) (*Product, error) {
+func (UnimplementedServiceFromSwallowServer) UpsertProduct(context.Context, *UpsertProductRequest) (*Product, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpsertProduct not implemented")
 }
-func (UnimplementedServiceSwallowServer) mustEmbedUnimplementedServiceSwallowServer() {}
-func (UnimplementedServiceSwallowServer) testEmbeddedByValue()                        {}
+func (UnimplementedServiceFromSwallowServer) mustEmbedUnimplementedServiceFromSwallowServer() {}
+func (UnimplementedServiceFromSwallowServer) testEmbeddedByValue()                            {}
 
-// UnsafeServiceSwallowServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ServiceSwallowServer will
+// UnsafeServiceFromSwallowServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ServiceFromSwallowServer will
 // result in compilation errors.
-type UnsafeServiceSwallowServer interface {
-	mustEmbedUnimplementedServiceSwallowServer()
+type UnsafeServiceFromSwallowServer interface {
+	mustEmbedUnimplementedServiceFromSwallowServer()
 }
 
-func RegisterServiceSwallowServer(s grpc.ServiceRegistrar, srv ServiceSwallowServer) {
-	// If the following call pancis, it indicates UnimplementedServiceSwallowServer was
+func RegisterServiceFromSwallowServer(s grpc.ServiceRegistrar, srv ServiceFromSwallowServer) {
+	// If the following call pancis, it indicates UnimplementedServiceFromSwallowServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&ServiceSwallow_ServiceDesc, srv)
+	s.RegisterService(&ServiceFromSwallow_ServiceDesc, srv)
 }
 
-func _ServiceSwallow_GetProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ServiceFromSwallow_GetProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FieldFilter)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceSwallowServer).GetProduct(ctx, in)
+		return srv.(ServiceFromSwallowServer).GetProduct(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceSwallow_GetProduct_FullMethodName,
+		FullMethod: ServiceFromSwallow_GetProduct_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceSwallowServer).GetProduct(ctx, req.(*FieldFilter))
+		return srv.(ServiceFromSwallowServer).GetProduct(ctx, req.(*FieldFilter))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceSwallow_GetProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ServiceFromSwallow_GetProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceSwallowServer).GetProducts(ctx, in)
+		return srv.(ServiceFromSwallowServer).GetProducts(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceSwallow_GetProducts_FullMethodName,
+		FullMethod: ServiceFromSwallow_GetProducts_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceSwallowServer).GetProducts(ctx, req.(*emptypb.Empty))
+		return srv.(ServiceFromSwallowServer).GetProducts(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceSwallow_UpsertProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ServiceFromSwallow_UpsertProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpsertProductRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceSwallowServer).UpsertProduct(ctx, in)
+		return srv.(ServiceFromSwallowServer).UpsertProduct(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceSwallow_UpsertProduct_FullMethodName,
+		FullMethod: ServiceFromSwallow_UpsertProduct_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceSwallowServer).UpsertProduct(ctx, req.(*UpsertProductRequest))
+		return srv.(ServiceFromSwallowServer).UpsertProduct(ctx, req.(*UpsertProductRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ServiceSwallow_ServiceDesc is the grpc.ServiceDesc for ServiceSwallow service.
+// ServiceFromSwallow_ServiceDesc is the grpc.ServiceDesc for ServiceFromSwallow service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ServiceSwallow_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "swallow_channel_from_service.ServiceSwallow",
-	HandlerType: (*ServiceSwallowServer)(nil),
+var ServiceFromSwallow_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "swallow_channel_from_service.ServiceFromSwallow",
+	HandlerType: (*ServiceFromSwallowServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetProduct",
-			Handler:    _ServiceSwallow_GetProduct_Handler,
+			Handler:    _ServiceFromSwallow_GetProduct_Handler,
 		},
 		{
 			MethodName: "GetProducts",
-			Handler:    _ServiceSwallow_GetProducts_Handler,
+			Handler:    _ServiceFromSwallow_GetProducts_Handler,
 		},
 		{
 			MethodName: "UpsertProduct",
-			Handler:    _ServiceSwallow_UpsertProduct_Handler,
+			Handler:    _ServiceFromSwallow_UpsertProduct_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

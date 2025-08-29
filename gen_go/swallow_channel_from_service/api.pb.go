@@ -248,8 +248,8 @@ const file_swallow_channel_from_service_api_proto_rawDesc = "" +
 	"\x05count\x18\x02 \x01(\x03R\x05count\"P\n" +
 	"\x14UpsertProductRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12(\n" +
-	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata2\xef\x02\n" +
-	"\x0eServiceSwallow\x12x\n" +
+	"\rjson_metadata\x18\x02 \x01(\tB\x03\x92A\x00R\fjsonMetadata2\xf3\x02\n" +
+	"\x12ServiceFromSwallow\x12x\n" +
 	"\n" +
 	"GetProduct\x12).swallow_channel_from_service.FieldFilter\x1a%.swallow_channel_from_service.Product\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/product/{id}\x12b\n" +
 	"\vGetProducts\x12\x16.google.protobuf.Empty\x1a%.swallow_channel_from_service.Product\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/products\x12\x7f\n" +
@@ -278,12 +278,12 @@ var file_swallow_channel_from_service_api_proto_goTypes = []any{
 }
 var file_swallow_channel_from_service_api_proto_depIdxs = []int32{
 	1, // 0: swallow_channel_from_service.Products.data:type_name -> swallow_channel_from_service.Product
-	0, // 1: swallow_channel_from_service.ServiceSwallow.GetProduct:input_type -> swallow_channel_from_service.FieldFilter
-	4, // 2: swallow_channel_from_service.ServiceSwallow.GetProducts:input_type -> google.protobuf.Empty
-	3, // 3: swallow_channel_from_service.ServiceSwallow.UpsertProduct:input_type -> swallow_channel_from_service.UpsertProductRequest
-	1, // 4: swallow_channel_from_service.ServiceSwallow.GetProduct:output_type -> swallow_channel_from_service.Product
-	1, // 5: swallow_channel_from_service.ServiceSwallow.GetProducts:output_type -> swallow_channel_from_service.Product
-	1, // 6: swallow_channel_from_service.ServiceSwallow.UpsertProduct:output_type -> swallow_channel_from_service.Product
+	0, // 1: swallow_channel_from_service.ServiceFromSwallow.GetProduct:input_type -> swallow_channel_from_service.FieldFilter
+	4, // 2: swallow_channel_from_service.ServiceFromSwallow.GetProducts:input_type -> google.protobuf.Empty
+	3, // 3: swallow_channel_from_service.ServiceFromSwallow.UpsertProduct:input_type -> swallow_channel_from_service.UpsertProductRequest
+	1, // 4: swallow_channel_from_service.ServiceFromSwallow.GetProduct:output_type -> swallow_channel_from_service.Product
+	1, // 5: swallow_channel_from_service.ServiceFromSwallow.GetProducts:output_type -> swallow_channel_from_service.Product
+	1, // 6: swallow_channel_from_service.ServiceFromSwallow.UpsertProduct:output_type -> swallow_channel_from_service.Product
 	4, // [4:7] is the sub-list for method output_type
 	1, // [1:4] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
