@@ -2,10 +2,12 @@ syntax = "proto3";
 
 package swallow_channel_to_service;
 
-import "protoc-gen-openapiv2/options/annotations.proto";
-import "common/range.proto";
 import "common/currencies.proto";
+import "common/i18n.proto";
+import "common/range.proto";
+import "common/suppliers.proto";
 import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "github.com/becash/apis/gen_go/swallow_channel_to_service";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
@@ -34,3 +36,22 @@ message Availabilities {
   Availability data = 1;
   int64 count = 2;
 }
+
+message Products {
+  Product data = 1;
+  int64 count = 2;
+}
+
+message ProductsRequest {
+  common.Suppliers supplier_id = 1;
+}
+
+
+
+message Product {
+  int32 id = 1;
+  common.Suppliers supplier_id =2;
+  common.I18n title = 3;
+  common.I18n description = 4;
+}
+

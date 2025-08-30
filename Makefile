@@ -26,7 +26,7 @@ lint:
 fix:
 	@echo "$(OK_COLOR)==> Fixing and Formatting!$(NO_COLOR)"
 	@$(protofix)
-	@pre-commit run buf-format --all-files
+#	@pre-commit run buf-format --all-files
 	@echo "$(OK_COLOR)==> Done!$(NO_COLOR)"
 
 

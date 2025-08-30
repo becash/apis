@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package common;
+
+option go_package = "github.com/becash/apis/gen_go/common";
+
+message Location {
+  Countries country =1;
+  string city = 2;
+}
+
+enum Countries {
+  COUNTRY_UNSPECIFIED = 0;
+  KOREA = 1;
+}

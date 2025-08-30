@@ -188,11 +188,175 @@ func (x *Availabilities) GetCount() int64 {
 	return 0
 }
 
+type Products struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Data          *Product               `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Products) Reset() {
+	*x = Products{}
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Products) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Products) ProtoMessage() {}
+
+func (x *Products) ProtoReflect() protoreflect.Message {
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Products.ProtoReflect.Descriptor instead.
+func (*Products) Descriptor() ([]byte, []int) {
+	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Products) GetData() *Product {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *Products) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+type ProductsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SupplierId    common.Suppliers       `protobuf:"varint,1,opt,name=supplier_id,json=supplierId,proto3,enum=common.Suppliers" json:"supplier_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ProductsRequest) Reset() {
+	*x = ProductsRequest{}
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProductsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProductsRequest) ProtoMessage() {}
+
+func (x *ProductsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProductsRequest.ProtoReflect.Descriptor instead.
+func (*ProductsRequest) Descriptor() ([]byte, []int) {
+	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ProductsRequest) GetSupplierId() common.Suppliers {
+	if x != nil {
+		return x.SupplierId
+	}
+	return common.Suppliers(0)
+}
+
+type Product struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	SupplierId    common.Suppliers       `protobuf:"varint,2,opt,name=supplier_id,json=supplierId,proto3,enum=common.Suppliers" json:"supplier_id,omitempty"`
+	Title         *common.I18N           `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Description   *common.I18N           `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Product) Reset() {
+	*x = Product{}
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Product) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Product) ProtoMessage() {}
+
+func (x *Product) ProtoReflect() protoreflect.Message {
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Product.ProtoReflect.Descriptor instead.
+func (*Product) Descriptor() ([]byte, []int) {
+	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Product) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Product) GetSupplierId() common.Suppliers {
+	if x != nil {
+		return x.SupplierId
+	}
+	return common.Suppliers(0)
+}
+
+func (x *Product) GetTitle() *common.I18N {
+	if x != nil {
+		return x.Title
+	}
+	return nil
+}
+
+func (x *Product) GetDescription() *common.I18N {
+	if x != nil {
+		return x.Description
+	}
+	return nil
+}
+
 var File_swallow_channel_to_service_messages_proto protoreflect.FileDescriptor
 
 const file_swallow_channel_to_service_messages_proto_rawDesc = "" +
 	"\n" +
-	")swallow_channel_to_service/messages.proto\x12\x1aswallow_channel_to_service\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x12common/range.proto\x1a\x17common/currencies.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"f\n" +
+	")swallow_channel_to_service/messages.proto\x12\x1aswallow_channel_to_service\x1a\x17common/currencies.proto\x1a\x11common/i18n.proto\x1a\x12common/range.proto\x1a\x16common/suppliers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"f\n" +
 	"\x1cProductAvailabilitiesRequest\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\x05R\tproductId\x12'\n" +
@@ -204,7 +368,19 @@ const file_swallow_channel_to_service_messages_proto_rawDesc = "" +
 	"\bcurrency\x18\x03 \x01(\x0e2\x10.common.CurrencyR\bcurrency\"d\n" +
 	"\x0eAvailabilities\x12<\n" +
 	"\x04data\x18\x01 \x01(\v2(.swallow_channel_to_service.AvailabilityR\x04data\x12\x14\n" +
-	"\x05count\x18\x02 \x01(\x03R\x05countB\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
+	"\x05count\x18\x02 \x01(\x03R\x05count\"Y\n" +
+	"\bProducts\x127\n" +
+	"\x04data\x18\x01 \x01(\v2#.swallow_channel_to_service.ProductR\x04data\x12\x14\n" +
+	"\x05count\x18\x02 \x01(\x03R\x05count\"E\n" +
+	"\x0fProductsRequest\x122\n" +
+	"\vsupplier_id\x18\x01 \x01(\x0e2\x11.common.SuppliersR\n" +
+	"supplierId\"\xa1\x01\n" +
+	"\aProduct\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x122\n" +
+	"\vsupplier_id\x18\x02 \x01(\x0e2\x11.common.SuppliersR\n" +
+	"supplierId\x12\"\n" +
+	"\x05title\x18\x03 \x01(\v2\f.common.I18nR\x05title\x12.\n" +
+	"\vdescription\x18\x04 \x01(\v2\f.common.I18nR\vdescriptionB\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
 	"bSwallow Service API Channel, Direction from External source ( is client ) to US service ( server )\x12!HTTP/JSON API for Swallow service2\x030.1*\x01\x012\x10application/json:\x10application/jsonZ8github.com/becash/apis/gen_go/swallow_channel_to_serviceb\x06proto3"
 
 var (
@@ -219,25 +395,35 @@ func file_swallow_channel_to_service_messages_proto_rawDescGZIP() []byte {
 	return file_swallow_channel_to_service_messages_proto_rawDescData
 }
 
-var file_swallow_channel_to_service_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_swallow_channel_to_service_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_swallow_channel_to_service_messages_proto_goTypes = []any{
 	(*ProductAvailabilitiesRequest)(nil), // 0: swallow_channel_to_service.ProductAvailabilitiesRequest
 	(*Availability)(nil),                 // 1: swallow_channel_to_service.Availability
 	(*Availabilities)(nil),               // 2: swallow_channel_to_service.Availabilities
-	(*common.DateRange)(nil),             // 3: common.DateRange
-	(*timestamppb.Timestamp)(nil),        // 4: google.protobuf.Timestamp
-	(common.Currency)(0),                 // 5: common.Currency
+	(*Products)(nil),                     // 3: swallow_channel_to_service.Products
+	(*ProductsRequest)(nil),              // 4: swallow_channel_to_service.ProductsRequest
+	(*Product)(nil),                      // 5: swallow_channel_to_service.Product
+	(*common.DateRange)(nil),             // 6: common.DateRange
+	(*timestamppb.Timestamp)(nil),        // 7: google.protobuf.Timestamp
+	(common.Currency)(0),                 // 8: common.Currency
+	(common.Suppliers)(0),                // 9: common.Suppliers
+	(*common.I18N)(nil),                  // 10: common.I18n
 }
 var file_swallow_channel_to_service_messages_proto_depIdxs = []int32{
-	3, // 0: swallow_channel_to_service.ProductAvailabilitiesRequest.range:type_name -> common.DateRange
-	4, // 1: swallow_channel_to_service.Availability.date_time:type_name -> google.protobuf.Timestamp
-	5, // 2: swallow_channel_to_service.Availability.currency:type_name -> common.Currency
-	1, // 3: swallow_channel_to_service.Availabilities.data:type_name -> swallow_channel_to_service.Availability
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	6,  // 0: swallow_channel_to_service.ProductAvailabilitiesRequest.range:type_name -> common.DateRange
+	7,  // 1: swallow_channel_to_service.Availability.date_time:type_name -> google.protobuf.Timestamp
+	8,  // 2: swallow_channel_to_service.Availability.currency:type_name -> common.Currency
+	1,  // 3: swallow_channel_to_service.Availabilities.data:type_name -> swallow_channel_to_service.Availability
+	5,  // 4: swallow_channel_to_service.Products.data:type_name -> swallow_channel_to_service.Product
+	9,  // 5: swallow_channel_to_service.ProductsRequest.supplier_id:type_name -> common.Suppliers
+	9,  // 6: swallow_channel_to_service.Product.supplier_id:type_name -> common.Suppliers
+	10, // 7: swallow_channel_to_service.Product.title:type_name -> common.I18n
+	10, // 8: swallow_channel_to_service.Product.description:type_name -> common.I18n
+	9,  // [9:9] is the sub-list for method output_type
+	9,  // [9:9] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_swallow_channel_to_service_messages_proto_init() }
@@ -251,7 +437,7 @@ func file_swallow_channel_to_service_messages_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_swallow_channel_to_service_messages_proto_rawDesc), len(file_swallow_channel_to_service_messages_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

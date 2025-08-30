@@ -237,7 +237,7 @@ var File_swallow_channel_from_service_api_proto protoreflect.FileDescriptor
 
 const file_swallow_channel_from_service_api_proto_rawDesc = "" +
 	"\n" +
-	"&swallow_channel_from_service/api.proto\x12\x1cswallow_channel_from_service\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1d\n" +
+	"&swallow_channel_from_service/api.proto\x12\x1cswallow_channel_from_service\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\x1d\n" +
 	"\vFieldFilter\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\"C\n" +
 	"\aProduct\x12\x0e\n" +

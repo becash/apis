@@ -3,36 +3,10 @@
 
 openapi: 3.0.3
 info:
-    title: ""
+    title: ServiceToSwallow API
     version: 0.0.1
 paths:
-    /v1/product:
-        post:
-            tags:
-                - ServiceFromSwallow
-            operationId: ServiceFromSwallow_UpsertProduct
-            parameters:
-                - name: id
-                  in: query
-                  description: 'item ID, if filed exist: Update else Create'
-                  schema:
-                    type: integer
-                    format: int32
-                - name: jsonMetadata
-                  in: query
-                  description: |-
-                    client side, data, now we not using them,
-                     but in future if field will participate to internal logic need to be added to Product fields
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/swallow_channel_from_service.Product'
-    /v1/product-availabilities/{productId}:
+    /product-availabilities/{productId}:
         get:
             tags:
                 - ServiceToSwallow
@@ -62,16 +36,14 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/swallow_channel_to_service.Availabilities'
-    /v1/product/{id}:
+    /product/{id}:
         get:
             tags:
-                - ServiceFromSwallow
-            description: Get on product by some field
-            operationId: ServiceFromSwallow_GetProduct
+                - ServiceToSwallow
+            operationId: ServiceToSwallow_GetProduct
             parameters:
                 - name: id
                   in: path
-                  description: Filter documents by ID Field
                   required: true
                   schema:
                     type: integer
@@ -82,34 +54,32 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_from_service.Product'
-    /v1/products:
+                                $ref: '#/components/schemas/swallow_channel_to_service.Product'
+    /products/:
         get:
             tags:
-                - ServiceFromSwallow
-            operationId: ServiceFromSwallow_GetProducts
+                - ServiceToSwallow
+            operationId: ServiceToSwallow_GetProducts
+            parameters:
+                - name: supplierId
+                  in: query
+                  schema:
+                    type: integer
+                    format: enum
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_from_service.Product'
+                                $ref: '#/components/schemas/swallow_channel_to_service.Products'
 components:
     schemas:
-        swallow_channel_from_service.Product:
+        common.I18n:
             type: object
             properties:
-                id:
-                    type: integer
-                    description: item ID
-                    format: int32
-                jsonMetadata:
+                en:
                     type: string
-                    description: |-
-                        client side, data, now we not using them,
-                         but in future if field will participate to internal logic need to be added to Product fields
-            description: Can be Ticket/Reservation
         swallow_channel_to_service.Availabilities:
             type: object
             properties:
@@ -129,6 +99,25 @@ components:
                 currency:
                     type: integer
                     format: enum
+        swallow_channel_to_service.Product:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                supplierId:
+                    type: integer
+                    format: enum
+                title:
+                    $ref: '#/components/schemas/common.I18n'
+                description:
+                    $ref: '#/components/schemas/common.I18n'
+        swallow_channel_to_service.Products:
+            type: object
+            properties:
+                data:
+                    $ref: '#/components/schemas/swallow_channel_to_service.Product'
+                count:
+                    type: string
 tags:
-    - name: ServiceFromSwallow
     - name: ServiceToSwallow

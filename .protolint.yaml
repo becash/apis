@@ -24,7 +24,7 @@ lint:
     exclude:
       # NOTE: UNIX paths will be properly accepted by both UNIX and Windows.
       - proto/google
-      - proto/danielvladco
+      - proto/protoc-gen-openapiv2
 
   # Linter rules.
   # Run `protolint list` to see all available rules or check the link

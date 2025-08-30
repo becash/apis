@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: ""
+    title: ServiceFromSwallow API
     version: 0.0.1
 paths:
     /v1/product:
@@ -32,36 +32,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/swallow_channel_from_service.Product'
-    /v1/product-availabilities/{productId}:
-        get:
-            tags:
-                - ServiceToSwallow
-            description: Get on product by some field
-            operationId: ServiceToSwallow_GetAvailabilityOfProduct
-            parameters:
-                - name: productId
-                  in: path
-                  required: true
-                  schema:
-                    type: integer
-                    format: int32
-                - name: range.gte
-                  in: query
-                  schema:
-                    type: string
-                    format: date-time
-                - name: range.lte
-                  in: query
-                  schema:
-                    type: string
-                    format: date-time
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/swallow_channel_to_service.Availabilities'
     /v1/product/{id}:
         get:
             tags:
@@ -110,25 +80,5 @@ components:
                         client side, data, now we not using them,
                          but in future if field will participate to internal logic need to be added to Product fields
             description: Can be Ticket/Reservation
-        swallow_channel_to_service.Availabilities:
-            type: object
-            properties:
-                data:
-                    $ref: '#/components/schemas/swallow_channel_to_service.Availability'
-                count:
-                    type: string
-        swallow_channel_to_service.Availability:
-            type: object
-            properties:
-                productId:
-                    type: integer
-                    format: int32
-                dateTime:
-                    type: string
-                    format: date-time
-                currency:
-                    type: integer
-                    format: enum
 tags:
     - name: ServiceFromSwallow
-    - name: ServiceToSwallow

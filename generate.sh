@@ -24,8 +24,6 @@ docker run -v ${PWD}:/root/data protoc-go \
 		--go_opt=module=github.com/becash/apis/gen_go \
 		--go-grpc_out=${DESTDIR_GO} \
 		--go-grpc_opt=paths=source_relative \
-		--grpc-gateway_out ${DESTDIR_GO} \
-    --grpc-gateway_opt paths=source_relative \
 		./proto/*/*.proto
 
 echo "---------------------GENERATE OPENAPI FILES--------------------------------"
@@ -38,7 +36,7 @@ for dir in ./gen_go/*/; do
       protoc \
       --proto_path=proto \
       --openapi_out=fq_schema_naming=true,default_response=false:${DESTDIR_OPENAPI}/${PROJECT} \
-      ./proto/*/*.proto
+      ./proto/${PROJECT}/*.proto
 
   docker run -v ${PWD}:/root/data protoc-go \
     oapi-codegen -config ./proto/${PROJECT}/cfg.yaml ${DESTDIR_OPENAPI}/${PROJECT}/openapi.yaml

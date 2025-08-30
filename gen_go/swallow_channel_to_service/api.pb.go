@@ -7,6 +7,7 @@
 package swallow_channel_to_service
 
 import (
+	common "github.com/becash/apis/gen_go/common"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -26,20 +27,32 @@ var File_swallow_channel_to_service_api_proto protoreflect.FileDescriptor
 
 const file_swallow_channel_to_service_api_proto_rawDesc = "" +
 	"\n" +
-	"$swallow_channel_to_service/api.proto\x12\x1aswallow_channel_to_service\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a)swallow_channel_to_service/messages.proto2\xc6\x01\n" +
-	"\x10ServiceToSwallow\x12\xb1\x01\n" +
-	"\x18GetAvailabilityOfProduct\x128.swallow_channel_to_service.ProductAvailabilitiesRequest\x1a*.swallow_channel_to_service.Availabilities\"/\x82\xd3\xe4\x93\x02)\x12'/v1/product-availabilities/{product_id}B\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
+	"$swallow_channel_to_service/api.proto\x12\x1aswallow_channel_to_service\x1a\x16common/filter_id.proto\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a)swallow_channel_to_service/messages.proto2\x98\x03\n" +
+	"\x10ServiceToSwallow\x12\xae\x01\n" +
+	"\x18GetAvailabilityOfProduct\x128.swallow_channel_to_service.ProductAvailabilitiesRequest\x1a*.swallow_channel_to_service.Availabilities\",\x82\xd3\xe4\x93\x02&\x12$/product-availabilities/{product_id}\x12]\n" +
+	"\n" +
+	"GetProduct\x12\x13.common.ItemIdInt32\x1a#.swallow_channel_to_service.Product\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/product/{id}\x12t\n" +
+	"\vGetProducts\x12+.swallow_channel_to_service.ProductsRequest\x1a$.swallow_channel_to_service.Products\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
+	"/products/B\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
 	"bSwallow Service API Channel, Direction from External source ( is client ) to US service ( server )\x12!HTTP/JSON API for Swallow service2\x030.1*\x01\x012\x10application/json:\x10application/jsonZ8github.com/becash/apis/gen_go/swallow_channel_to_serviceb\x06proto3"
 
 var file_swallow_channel_to_service_api_proto_goTypes = []any{
 	(*ProductAvailabilitiesRequest)(nil), // 0: swallow_channel_to_service.ProductAvailabilitiesRequest
-	(*Availabilities)(nil),               // 1: swallow_channel_to_service.Availabilities
+	(*common.ItemIdInt32)(nil),           // 1: common.ItemIdInt32
+	(*ProductsRequest)(nil),              // 2: swallow_channel_to_service.ProductsRequest
+	(*Availabilities)(nil),               // 3: swallow_channel_to_service.Availabilities
+	(*Product)(nil),                      // 4: swallow_channel_to_service.Product
+	(*Products)(nil),                     // 5: swallow_channel_to_service.Products
 }
 var file_swallow_channel_to_service_api_proto_depIdxs = []int32{
 	0, // 0: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:input_type -> swallow_channel_to_service.ProductAvailabilitiesRequest
-	1, // 1: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:output_type -> swallow_channel_to_service.Availabilities
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	1, // 1: swallow_channel_to_service.ServiceToSwallow.GetProduct:input_type -> common.ItemIdInt32
+	2, // 2: swallow_channel_to_service.ServiceToSwallow.GetProducts:input_type -> swallow_channel_to_service.ProductsRequest
+	3, // 3: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:output_type -> swallow_channel_to_service.Availabilities
+	4, // 4: swallow_channel_to_service.ServiceToSwallow.GetProduct:output_type -> swallow_channel_to_service.Product
+	5, // 5: swallow_channel_to_service.ServiceToSwallow.GetProducts:output_type -> swallow_channel_to_service.Products
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name

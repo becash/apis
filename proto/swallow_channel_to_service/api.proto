@@ -2,8 +2,9 @@ syntax = "proto3";
 
 package swallow_channel_to_service;
 
-import "protoc-gen-openapiv2/options/annotations.proto";
+import "common/filter_id.proto";
 import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 import "swallow_channel_to_service/messages.proto";
 option go_package = "github.com/becash/apis/gen_go/swallow_channel_to_service";
 
@@ -21,6 +22,12 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 service ServiceToSwallow {
   // Get on product by some field
   rpc GetAvailabilityOfProduct(ProductAvailabilitiesRequest) returns (Availabilities) {
-    option (google.api.http) = {get: "/v1/product-availabilities/{product_id}"};
+    option (google.api.http) = {get: "/product-availabilities/{product_id}"};
+  }
+  rpc GetProduct(common.ItemIdInt32) returns (Product) {
+    option (google.api.http) = {get: "/product/{id}"};
+  }
+  rpc GetProducts(ProductsRequest) returns (Products) {
+    option (google.api.http) = {get: "/products/"};
   }
 }

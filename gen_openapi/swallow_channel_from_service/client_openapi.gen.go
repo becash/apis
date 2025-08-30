@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 
 	"github.com/oapi-codegen/runtime"
 )
@@ -26,19 +25,6 @@ type SwallowChannelFromServiceProduct struct {
 	JsonMetadata *string `json:"jsonMetadata,omitempty"`
 }
 
-// SwallowChannelToServiceAvailabilities defines model for swallow_channel_to_service.Availabilities.
-type SwallowChannelToServiceAvailabilities struct {
-	Count *string                              `json:"count,omitempty"`
-	Data  *SwallowChannelToServiceAvailability `json:"data,omitempty"`
-}
-
-// SwallowChannelToServiceAvailability defines model for swallow_channel_to_service.Availability.
-type SwallowChannelToServiceAvailability struct {
-	Currency  *int       `json:"currency,omitempty"`
-	DateTime  *time.Time `json:"dateTime,omitempty"`
-	ProductId *int32     `json:"productId,omitempty"`
-}
-
 // ServiceFromSwallowUpsertProductParams defines parameters for ServiceFromSwallowUpsertProduct.
 type ServiceFromSwallowUpsertProductParams struct {
 	// Id item ID, if filed exist: Update else Create
@@ -47,12 +33,6 @@ type ServiceFromSwallowUpsertProductParams struct {
 	// JsonMetadata client side, data, now we not using them,
 	//  but in future if field will participate to internal logic need to be added to Product fields
 	JsonMetadata *string `form:"jsonMetadata,omitempty" json:"jsonMetadata,omitempty"`
-}
-
-// ServiceToSwallowGetAvailabilityOfProductParams defines parameters for ServiceToSwallowGetAvailabilityOfProduct.
-type ServiceToSwallowGetAvailabilityOfProductParams struct {
-	RangeGte *time.Time `form:"range.gte,omitempty" json:"range.gte,omitempty"`
-	RangeLte *time.Time `form:"range.lte,omitempty" json:"range.lte,omitempty"`
 }
 
 // RequestEditorFn  is the function signature for the RequestEditor callback function
@@ -131,9 +111,6 @@ type ClientInterface interface {
 	// ServiceFromSwallowUpsertProduct request
 	ServiceFromSwallowUpsertProduct(ctx context.Context, params *ServiceFromSwallowUpsertProductParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ServiceToSwallowGetAvailabilityOfProduct request
-	ServiceToSwallowGetAvailabilityOfProduct(ctx context.Context, productId int32, params *ServiceToSwallowGetAvailabilityOfProductParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// ServiceFromSwallowGetProduct request
 	ServiceFromSwallowGetProduct(ctx context.Context, id int32, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -143,18 +120,6 @@ type ClientInterface interface {
 
 func (c *Client) ServiceFromSwallowUpsertProduct(ctx context.Context, params *ServiceFromSwallowUpsertProductParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewServiceFromSwallowUpsertProductRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ServiceToSwallowGetAvailabilityOfProduct(ctx context.Context, productId int32, params *ServiceToSwallowGetAvailabilityOfProductParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewServiceToSwallowGetAvailabilityOfProductRequest(c.Server, productId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -247,78 +212,6 @@ func NewServiceFromSwallowUpsertProductRequest(server string, params *ServiceFro
 	}
 
 	req, err := http.NewRequest("POST", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewServiceToSwallowGetAvailabilityOfProductRequest generates requests for ServiceToSwallowGetAvailabilityOfProduct
-func NewServiceToSwallowGetAvailabilityOfProductRequest(server string, productId int32, params *ServiceToSwallowGetAvailabilityOfProductParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "productId", runtime.ParamLocationPath, productId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/product-availabilities/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.RangeGte != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "range.gte", runtime.ParamLocationQuery, *params.RangeGte); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.RangeLte != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "range.lte", runtime.ParamLocationQuery, *params.RangeLte); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -433,9 +326,6 @@ type ClientWithResponsesInterface interface {
 	// ServiceFromSwallowUpsertProductWithResponse request
 	ServiceFromSwallowUpsertProductWithResponse(ctx context.Context, params *ServiceFromSwallowUpsertProductParams, reqEditors ...RequestEditorFn) (*ServiceFromSwallowUpsertProductResponse, error)
 
-	// ServiceToSwallowGetAvailabilityOfProductWithResponse request
-	ServiceToSwallowGetAvailabilityOfProductWithResponse(ctx context.Context, productId int32, params *ServiceToSwallowGetAvailabilityOfProductParams, reqEditors ...RequestEditorFn) (*ServiceToSwallowGetAvailabilityOfProductResponse, error)
-
 	// ServiceFromSwallowGetProductWithResponse request
 	ServiceFromSwallowGetProductWithResponse(ctx context.Context, id int32, reqEditors ...RequestEditorFn) (*ServiceFromSwallowGetProductResponse, error)
 
@@ -459,28 +349,6 @@ func (r ServiceFromSwallowUpsertProductResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r ServiceFromSwallowUpsertProductResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ServiceToSwallowGetAvailabilityOfProductResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SwallowChannelToServiceAvailabilities
-}
-
-// Status returns HTTPResponse.Status
-func (r ServiceToSwallowGetAvailabilityOfProductResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ServiceToSwallowGetAvailabilityOfProductResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -540,15 +408,6 @@ func (c *ClientWithResponses) ServiceFromSwallowUpsertProductWithResponse(ctx co
 	return ParseServiceFromSwallowUpsertProductResponse(rsp)
 }
 
-// ServiceToSwallowGetAvailabilityOfProductWithResponse request returning *ServiceToSwallowGetAvailabilityOfProductResponse
-func (c *ClientWithResponses) ServiceToSwallowGetAvailabilityOfProductWithResponse(ctx context.Context, productId int32, params *ServiceToSwallowGetAvailabilityOfProductParams, reqEditors ...RequestEditorFn) (*ServiceToSwallowGetAvailabilityOfProductResponse, error) {
-	rsp, err := c.ServiceToSwallowGetAvailabilityOfProduct(ctx, productId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseServiceToSwallowGetAvailabilityOfProductResponse(rsp)
-}
-
 // ServiceFromSwallowGetProductWithResponse request returning *ServiceFromSwallowGetProductResponse
 func (c *ClientWithResponses) ServiceFromSwallowGetProductWithResponse(ctx context.Context, id int32, reqEditors ...RequestEditorFn) (*ServiceFromSwallowGetProductResponse, error) {
 	rsp, err := c.ServiceFromSwallowGetProduct(ctx, id, reqEditors...)
@@ -583,32 +442,6 @@ func ParseServiceFromSwallowUpsertProductResponse(rsp *http.Response) (*ServiceF
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SwallowChannelFromServiceProduct
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseServiceToSwallowGetAvailabilityOfProductResponse parses an HTTP response from a ServiceToSwallowGetAvailabilityOfProductWithResponse call
-func ParseServiceToSwallowGetAvailabilityOfProductResponse(rsp *http.Response) (*ServiceToSwallowGetAvailabilityOfProductResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ServiceToSwallowGetAvailabilityOfProductResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SwallowChannelToServiceAvailabilities
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
