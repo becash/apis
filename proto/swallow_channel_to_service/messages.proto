@@ -2,10 +2,9 @@ syntax = "proto3";
 
 package swallow_channel_to_service;
 
-import "common/currencies.proto";
+import "common/enums.proto";
 import "common/i18n.proto";
 import "common/range.proto";
-import "common/suppliers.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "github.com/becash/apis/gen_go/swallow_channel_to_service";
@@ -38,7 +37,7 @@ message Availabilities {
 }
 
 message Products {
-  Product data = 1;
+  repeated Product data = 1;
   int64 count = 2;
 }
 
@@ -55,3 +54,22 @@ message Product {
   common.I18n description = 4;
 }
 
+message CreateOrderRequest {
+  common.Currency currency = 3;
+}
+
+
+message Order {
+  int32 id = 1;
+  google.protobuf.Timestamp created =2;
+  common.Currency currency = 3;
+}
+
+message Orders {
+  repeated Order data = 1;
+  int64 count = 2;
+}
+
+message OrdersRequest {
+  common.DateRange range = 2;
+}

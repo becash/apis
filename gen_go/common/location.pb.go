@@ -25,18 +25,18 @@ type Countries int32
 
 const (
 	Countries_COUNTRY_UNSPECIFIED Countries = 0
-	Countries_KOREA_US            Countries = 1
+	Countries_KOREA               Countries = 1
 )
 
 // Enum value maps for Countries.
 var (
 	Countries_name = map[int32]string{
 		0: "COUNTRY_UNSPECIFIED",
-		1: "KOREA_US",
+		1: "KOREA",
 	}
 	Countries_value = map[string]int32{
 		"COUNTRY_UNSPECIFIED": 0,
-		"KOREA_US":            1,
+		"KOREA":               1,
 	}
 )
 
@@ -126,10 +126,10 @@ const file_common_location_proto_rawDesc = "" +
 	"\x15common/location.proto\x12\x06common\"K\n" +
 	"\bLocation\x12+\n" +
 	"\acountry\x18\x01 \x01(\x0e2\x11.common.CountriesR\acountry\x12\x12\n" +
-	"\x04city\x18\x02 \x01(\tR\x04city*2\n" +
+	"\x04city\x18\x02 \x01(\tR\x04city*/\n" +
 	"\tCountries\x12\x17\n" +
-	"\x13COUNTRY_UNSPECIFIED\x10\x00\x12\f\n" +
-	"\bKOREA_US\x10\x01B&Z$github.com/becash/apis/gen_go/commonb\x06proto3"
+	"\x13COUNTRY_UNSPECIFIED\x10\x00\x12\t\n" +
+	"\x05KOREA\x10\x01B&Z$github.com/becash/apis/gen_go/commonb\x06proto3"
 
 var (
 	file_common_location_proto_rawDescOnce sync.Once

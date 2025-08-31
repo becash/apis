@@ -4,6 +4,17 @@ package common;
 
 option go_package = "github.com/becash/apis/gen_go/common";
 
+enum Suppliers {
+  SUPLIER_UNSPECIFIED = 0;
+  YANOJA = 1;
+}
+
+enum CustomerCategories {
+  CC_UNSPECIFIED = 0;
+  ADULT = 1;
+  CHILD = 2;
+}
+
 enum Currency {
   CURRENCY_UNSPECIFIED = 0;
   MDL = 1;

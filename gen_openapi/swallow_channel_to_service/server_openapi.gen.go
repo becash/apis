@@ -30,6 +30,19 @@ type SwallowChannelToServiceAvailability struct {
 	ProductId *int32     `json:"productId,omitempty"`
 }
 
+// SwallowChannelToServiceOrder defines model for swallow_channel_to_service.Order.
+type SwallowChannelToServiceOrder struct {
+	Created  *time.Time `json:"created,omitempty"`
+	Currency *int       `json:"currency,omitempty"`
+	Id       *int32     `json:"id,omitempty"`
+}
+
+// SwallowChannelToServiceOrders defines model for swallow_channel_to_service.Orders.
+type SwallowChannelToServiceOrders struct {
+	Count *string                         `json:"count,omitempty"`
+	Data  *[]SwallowChannelToServiceOrder `json:"data,omitempty"`
+}
+
 // SwallowChannelToServiceProduct defines model for swallow_channel_to_service.Product.
 type SwallowChannelToServiceProduct struct {
 	Description *CommonI18n `json:"description,omitempty"`
@@ -40,8 +53,19 @@ type SwallowChannelToServiceProduct struct {
 
 // SwallowChannelToServiceProducts defines model for swallow_channel_to_service.Products.
 type SwallowChannelToServiceProducts struct {
-	Count *string                         `json:"count,omitempty"`
-	Data  *SwallowChannelToServiceProduct `json:"data,omitempty"`
+	Count *string                           `json:"count,omitempty"`
+	Data  *[]SwallowChannelToServiceProduct `json:"data,omitempty"`
+}
+
+// ServiceToSwallowCreateOrderParams defines parameters for ServiceToSwallowCreateOrder.
+type ServiceToSwallowCreateOrderParams struct {
+	Currency *int `form:"currency,omitempty" json:"currency,omitempty"`
+}
+
+// ServiceToSwallowGetOrdersParams defines parameters for ServiceToSwallowGetOrders.
+type ServiceToSwallowGetOrdersParams struct {
+	RangeGte *time.Time `form:"range.gte,omitempty" json:"range.gte,omitempty"`
+	RangeLte *time.Time `form:"range.lte,omitempty" json:"range.lte,omitempty"`
 }
 
 // ServiceToSwallowGetAvailabilityOfProductParams defines parameters for ServiceToSwallowGetAvailabilityOfProduct.
@@ -57,6 +81,15 @@ type ServiceToSwallowGetProductsParams struct {
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
+
+	// (POST /order/)
+	ServiceToSwallowCreateOrder(c *gin.Context, params ServiceToSwallowCreateOrderParams)
+
+	// (GET /order/{id})
+	ServiceToSwallowGetOrder(c *gin.Context, id int32)
+
+	// (GET /orders/)
+	ServiceToSwallowGetOrders(c *gin.Context, params ServiceToSwallowGetOrdersParams)
 
 	// (GET /product-availabilities/{productId})
 	ServiceToSwallowGetAvailabilityOfProduct(c *gin.Context, productId int32, params ServiceToSwallowGetAvailabilityOfProductParams)
@@ -76,6 +109,90 @@ type ServerInterfaceWrapper struct {
 }
 
 type MiddlewareFunc func(c *gin.Context)
+
+// ServiceToSwallowCreateOrder operation middleware
+func (siw *ServerInterfaceWrapper) ServiceToSwallowCreateOrder(c *gin.Context) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ServiceToSwallowCreateOrderParams
+
+	// ------------- Optional query parameter "currency" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "currency", c.Request.URL.Query(), &params.Currency)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter currency: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceToSwallowCreateOrder(c, params)
+}
+
+// ServiceToSwallowGetOrder operation middleware
+func (siw *ServerInterfaceWrapper) ServiceToSwallowGetOrder(c *gin.Context) {
+
+	var err error
+
+	// ------------- Path parameter "id" -------------
+	var id int32
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", c.Param("id"), &id, runtime.BindStyledParameterOptions{Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter id: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceToSwallowGetOrder(c, id)
+}
+
+// ServiceToSwallowGetOrders operation middleware
+func (siw *ServerInterfaceWrapper) ServiceToSwallowGetOrders(c *gin.Context) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ServiceToSwallowGetOrdersParams
+
+	// ------------- Optional query parameter "range.gte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "range.gte", c.Request.URL.Query(), &params.RangeGte)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter range.gte: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// ------------- Optional query parameter "range.lte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "range.lte", c.Request.URL.Query(), &params.RangeLte)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter range.lte: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceToSwallowGetOrders(c, params)
+}
 
 // ServiceToSwallowGetAvailabilityOfProduct operation middleware
 func (siw *ServerInterfaceWrapper) ServiceToSwallowGetAvailabilityOfProduct(c *gin.Context) {
@@ -197,6 +314,9 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 		ErrorHandler:       errorHandler,
 	}
 
+	router.POST(options.BaseURL+"/order/", wrapper.ServiceToSwallowCreateOrder)
+	router.GET(options.BaseURL+"/order/:id", wrapper.ServiceToSwallowGetOrder)
+	router.GET(options.BaseURL+"/orders/", wrapper.ServiceToSwallowGetOrders)
 	router.GET(options.BaseURL+"/product-availabilities/:productId", wrapper.ServiceToSwallowGetAvailabilityOfProduct)
 	router.GET(options.BaseURL+"/product/:id", wrapper.ServiceToSwallowGetProduct)
 	router.GET(options.BaseURL+"/products/", wrapper.ServiceToSwallowGetProducts)

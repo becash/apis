@@ -30,4 +30,14 @@ service ServiceToSwallow {
   rpc GetProducts(ProductsRequest) returns (Products) {
     option (google.api.http) = {get: "/products/"};
   }
+
+  rpc CreateOrder(CreateOrderRequest) returns (Order) {
+    option (google.api.http) = {post: "/order/"};
+  }
+  rpc GetOrder(common.ItemIdInt32) returns (Order) {
+    option (google.api.http) = {get: "/order/{id}"};
+  }
+  rpc GetOrders(OrdersRequest) returns (Orders) {
+    option (google.api.http) = {get: "/orders/"};
+  }
 }
