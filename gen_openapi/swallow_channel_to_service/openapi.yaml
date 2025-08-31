@@ -171,6 +171,9 @@ components:
                 currency:
                     type: integer
                     format: enum
+                status:
+                    type: integer
+                    format: enum
         swallow_channel_to_service.Orders:
             type: object
             properties:

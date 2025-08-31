@@ -63,6 +63,7 @@ message Order {
   int32 id = 1;
   google.protobuf.Timestamp created =2;
   common.Currency currency = 3;
+  common.OrderStatus status = 4;
 }
 
 message Orders {

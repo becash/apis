@@ -401,6 +401,7 @@ type Order struct {
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Created       *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=created,proto3" json:"created,omitempty"`
 	Currency      common.Currency        `protobuf:"varint,3,opt,name=currency,proto3,enum=common.Currency" json:"currency,omitempty"`
+	Status        common.OrderStatus     `protobuf:"varint,4,opt,name=status,proto3,enum=common.OrderStatus" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -454,6 +455,13 @@ func (x *Order) GetCurrency() common.Currency {
 		return x.Currency
 	}
 	return common.Currency(0)
+}
+
+func (x *Order) GetStatus() common.OrderStatus {
+	if x != nil {
+		return x.Status
+	}
+	return common.OrderStatus(0)
 }
 
 type Orders struct {
@@ -582,11 +590,12 @@ const file_swallow_channel_to_service_messages_proto_rawDesc = "" +
 	"\x05title\x18\x03 \x01(\v2\f.common.I18nR\x05title\x12.\n" +
 	"\vdescription\x18\x04 \x01(\v2\f.common.I18nR\vdescription\"B\n" +
 	"\x12CreateOrderRequest\x12,\n" +
-	"\bcurrency\x18\x03 \x01(\x0e2\x10.common.CurrencyR\bcurrency\"{\n" +
+	"\bcurrency\x18\x03 \x01(\x0e2\x10.common.CurrencyR\bcurrency\"\xa8\x01\n" +
 	"\x05Order\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x124\n" +
 	"\acreated\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\acreated\x12,\n" +
-	"\bcurrency\x18\x03 \x01(\x0e2\x10.common.CurrencyR\bcurrency\"U\n" +
+	"\bcurrency\x18\x03 \x01(\x0e2\x10.common.CurrencyR\bcurrency\x12+\n" +
+	"\x06status\x18\x04 \x01(\x0e2\x13.common.OrderStatusR\x06status\"U\n" +
 	"\x06Orders\x125\n" +
 	"\x04data\x18\x01 \x03(\v2!.swallow_channel_to_service.OrderR\x04data\x12\x14\n" +
 	"\x05count\x18\x02 \x01(\x03R\x05count\"8\n" +
@@ -623,6 +632,7 @@ var file_swallow_channel_to_service_messages_proto_goTypes = []any{
 	(common.Currency)(0),                 // 12: common.Currency
 	(common.Suppliers)(0),                // 13: common.Suppliers
 	(*common.I18N)(nil),                  // 14: common.I18n
+	(common.OrderStatus)(0),              // 15: common.OrderStatus
 }
 var file_swallow_channel_to_service_messages_proto_depIdxs = []int32{
 	10, // 0: swallow_channel_to_service.ProductAvailabilitiesRequest.range:type_name -> common.DateRange
@@ -637,13 +647,14 @@ var file_swallow_channel_to_service_messages_proto_depIdxs = []int32{
 	12, // 9: swallow_channel_to_service.CreateOrderRequest.currency:type_name -> common.Currency
 	11, // 10: swallow_channel_to_service.Order.created:type_name -> google.protobuf.Timestamp
 	12, // 11: swallow_channel_to_service.Order.currency:type_name -> common.Currency
-	7,  // 12: swallow_channel_to_service.Orders.data:type_name -> swallow_channel_to_service.Order
-	10, // 13: swallow_channel_to_service.OrdersRequest.range:type_name -> common.DateRange
-	14, // [14:14] is the sub-list for method output_type
-	14, // [14:14] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	15, // 12: swallow_channel_to_service.Order.status:type_name -> common.OrderStatus
+	7,  // 13: swallow_channel_to_service.Orders.data:type_name -> swallow_channel_to_service.Order
+	10, // 14: swallow_channel_to_service.OrdersRequest.range:type_name -> common.DateRange
+	15, // [15:15] is the sub-list for method output_type
+	15, // [15:15] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_swallow_channel_to_service_messages_proto_init() }

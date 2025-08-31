@@ -21,3 +21,9 @@ enum Currency {
   USD = 2;
   EUR = 3;
 }
+
+enum OrderStatus {
+  OS_UNSPECIFIED = 0;
+  //Mean that order is not confirmed by customer, like prebooking or reservation of somthing
+  DRAFT = 1;
+}

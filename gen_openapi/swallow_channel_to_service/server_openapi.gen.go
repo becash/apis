@@ -35,6 +35,7 @@ type SwallowChannelToServiceOrder struct {
 	Created  *time.Time `json:"created,omitempty"`
 	Currency *int       `json:"currency,omitempty"`
 	Id       *int32     `json:"id,omitempty"`
+	Status   *int       `json:"status,omitempty"`
 }
 
 // SwallowChannelToServiceOrders defines model for swallow_channel_to_service.Orders.
