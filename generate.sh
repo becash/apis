@@ -32,12 +32,14 @@ for dir in ./gen_go/*/; do
   PROJECT="${PROJECT##*/}"     # keep only the last path component
   [ "$PROJECT" = "common" ] && continue
   mkdir ${DESTDIR_OPENAPI}/${PROJECT}
+  # Generate a openapi.yaml
   docker run -v ${PWD}:/root/data protoc-go \
       protoc \
       --proto_path=proto \
-      --openapi_out=fq_schema_naming=true,default_response=false:${DESTDIR_OPENAPI}/${PROJECT} \
+      --openapi_out=fq_schema_naming=false,default_response=false:${DESTDIR_OPENAPI}/${PROJECT} \
       ./proto/${PROJECT}/*.proto
 
+  # generate go client/server according configuration
   docker run -v ${PWD}:/root/data protoc-go \
     oapi-codegen -config ./proto/${PROJECT}/cfg.yaml ${DESTDIR_OPENAPI}/${PROJECT}/openapi.yaml
 done;

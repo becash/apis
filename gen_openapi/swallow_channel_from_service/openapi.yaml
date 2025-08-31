@@ -31,7 +31,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_from_service.Product'
+                                $ref: '#/components/schemas/Product'
     /v1/product/{id}:
         get:
             tags:
@@ -52,7 +52,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_from_service.Product'
+                                $ref: '#/components/schemas/Product'
     /v1/products:
         get:
             tags:
@@ -64,10 +64,10 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_from_service.Product'
+                                $ref: '#/components/schemas/Product'
 components:
     schemas:
-        swallow_channel_from_service.Product:
+        Product:
             type: object
             properties:
                 id:

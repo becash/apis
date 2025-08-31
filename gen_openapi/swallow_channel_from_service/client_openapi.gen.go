@@ -15,8 +15,8 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
-// SwallowChannelFromServiceProduct Can be Ticket/Reservation
-type SwallowChannelFromServiceProduct struct {
+// Product Can be Ticket/Reservation
+type Product struct {
 	// Id item ID
 	Id *int32 `json:"id,omitempty"`
 
@@ -336,7 +336,7 @@ type ClientWithResponsesInterface interface {
 type ServiceFromSwallowUpsertProductResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *SwallowChannelFromServiceProduct
+	JSON200      *Product
 }
 
 // Status returns HTTPResponse.Status
@@ -358,7 +358,7 @@ func (r ServiceFromSwallowUpsertProductResponse) StatusCode() int {
 type ServiceFromSwallowGetProductResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *SwallowChannelFromServiceProduct
+	JSON200      *Product
 }
 
 // Status returns HTTPResponse.Status
@@ -380,7 +380,7 @@ func (r ServiceFromSwallowGetProductResponse) StatusCode() int {
 type ServiceFromSwallowGetProductsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *SwallowChannelFromServiceProduct
+	JSON200      *Product
 }
 
 // Status returns HTTPResponse.Status
@@ -441,7 +441,7 @@ func ParseServiceFromSwallowUpsertProductResponse(rsp *http.Response) (*ServiceF
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SwallowChannelFromServiceProduct
+		var dest Product
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -467,7 +467,7 @@ func ParseServiceFromSwallowGetProductResponse(rsp *http.Response) (*ServiceFrom
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SwallowChannelFromServiceProduct
+		var dest Product
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -493,7 +493,7 @@ func ParseServiceFromSwallowGetProductsResponse(rsp *http.Response) (*ServiceFro
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SwallowChannelFromServiceProduct
+		var dest Product
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

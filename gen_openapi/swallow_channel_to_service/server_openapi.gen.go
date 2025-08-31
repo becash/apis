@@ -12,50 +12,50 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
-// CommonI18n defines model for common.I18n.
-type CommonI18n struct {
-	En *string `json:"en,omitempty"`
+// Availabilities defines model for Availabilities.
+type Availabilities struct {
+	Count *string       `json:"count,omitempty"`
+	Data  *Availability `json:"data,omitempty"`
 }
 
-// SwallowChannelToServiceAvailabilities defines model for swallow_channel_to_service.Availabilities.
-type SwallowChannelToServiceAvailabilities struct {
-	Count *string                              `json:"count,omitempty"`
-	Data  *SwallowChannelToServiceAvailability `json:"data,omitempty"`
-}
-
-// SwallowChannelToServiceAvailability defines model for swallow_channel_to_service.Availability.
-type SwallowChannelToServiceAvailability struct {
+// Availability defines model for Availability.
+type Availability struct {
 	Currency  *int       `json:"currency,omitempty"`
 	DateTime  *time.Time `json:"dateTime,omitempty"`
 	ProductId *int32     `json:"productId,omitempty"`
 }
 
-// SwallowChannelToServiceOrder defines model for swallow_channel_to_service.Order.
-type SwallowChannelToServiceOrder struct {
+// I18n defines model for I18n.
+type I18n struct {
+	En *string `json:"en,omitempty"`
+}
+
+// Order defines model for Order.
+type Order struct {
 	Created  *time.Time `json:"created,omitempty"`
 	Currency *int       `json:"currency,omitempty"`
 	Id       *int32     `json:"id,omitempty"`
 	Status   *int       `json:"status,omitempty"`
 }
 
-// SwallowChannelToServiceOrders defines model for swallow_channel_to_service.Orders.
-type SwallowChannelToServiceOrders struct {
-	Count *string                         `json:"count,omitempty"`
-	Data  *[]SwallowChannelToServiceOrder `json:"data,omitempty"`
+// Orders defines model for Orders.
+type Orders struct {
+	Count *string  `json:"count,omitempty"`
+	Data  *[]Order `json:"data,omitempty"`
 }
 
-// SwallowChannelToServiceProduct defines model for swallow_channel_to_service.Product.
-type SwallowChannelToServiceProduct struct {
-	Description *CommonI18n `json:"description,omitempty"`
-	Id          *int32      `json:"id,omitempty"`
-	SupplierId  *int        `json:"supplierId,omitempty"`
-	Title       *CommonI18n `json:"title,omitempty"`
+// Product defines model for Product.
+type Product struct {
+	Description *I18n  `json:"description,omitempty"`
+	Id          *int32 `json:"id,omitempty"`
+	SupplierId  *int   `json:"supplierId,omitempty"`
+	Title       *I18n  `json:"title,omitempty"`
 }
 
-// SwallowChannelToServiceProducts defines model for swallow_channel_to_service.Products.
-type SwallowChannelToServiceProducts struct {
-	Count *string                           `json:"count,omitempty"`
-	Data  *[]SwallowChannelToServiceProduct `json:"data,omitempty"`
+// Products defines model for Products.
+type Products struct {
+	Count *string    `json:"count,omitempty"`
+	Data  *[]Product `json:"data,omitempty"`
 }
 
 // ServiceToSwallowCreateOrderParams defines parameters for ServiceToSwallowCreateOrder.

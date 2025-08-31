@@ -23,7 +23,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_to_service.Order'
+                                $ref: '#/components/schemas/Order'
     /order/{id}:
         get:
             tags:
@@ -42,7 +42,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_to_service.Order'
+                                $ref: '#/components/schemas/Order'
     /orders/:
         get:
             tags:
@@ -65,7 +65,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_to_service.Orders'
+                                $ref: '#/components/schemas/Orders'
     /product-availabilities/{productId}:
         get:
             tags:
@@ -95,7 +95,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_to_service.Availabilities'
+                                $ref: '#/components/schemas/Availabilities'
     /product/{id}:
         get:
             tags:
@@ -114,7 +114,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_to_service.Product'
+                                $ref: '#/components/schemas/Product'
     /products/:
         get:
             tags:
@@ -132,22 +132,17 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/swallow_channel_to_service.Products'
+                                $ref: '#/components/schemas/Products'
 components:
     schemas:
-        common.I18n:
-            type: object
-            properties:
-                en:
-                    type: string
-        swallow_channel_to_service.Availabilities:
+        Availabilities:
             type: object
             properties:
                 data:
-                    $ref: '#/components/schemas/swallow_channel_to_service.Availability'
+                    $ref: '#/components/schemas/Availability'
                 count:
                     type: string
-        swallow_channel_to_service.Availability:
+        Availability:
             type: object
             properties:
                 productId:
@@ -159,7 +154,12 @@ components:
                 currency:
                     type: integer
                     format: enum
-        swallow_channel_to_service.Order:
+        I18n:
+            type: object
+            properties:
+                en:
+                    type: string
+        Order:
             type: object
             properties:
                 id:
@@ -174,16 +174,16 @@ components:
                 status:
                     type: integer
                     format: enum
-        swallow_channel_to_service.Orders:
+        Orders:
             type: object
             properties:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/swallow_channel_to_service.Order'
+                        $ref: '#/components/schemas/Order'
                 count:
                     type: string
-        swallow_channel_to_service.Product:
+        Product:
             type: object
             properties:
                 id:
@@ -193,16 +193,16 @@ components:
                     type: integer
                     format: enum
                 title:
-                    $ref: '#/components/schemas/common.I18n'
+                    $ref: '#/components/schemas/I18n'
                 description:
-                    $ref: '#/components/schemas/common.I18n'
-        swallow_channel_to_service.Products:
+                    $ref: '#/components/schemas/I18n'
+        Products:
             type: object
             properties:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/swallow_channel_to_service.Product'
+                        $ref: '#/components/schemas/Product'
                 count:
                     type: string
 tags:
