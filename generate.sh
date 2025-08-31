@@ -36,7 +36,7 @@ for dir in ./gen_go/*/; do
   docker run -v ${PWD}:/root/data protoc-go \
       protoc \
       --proto_path=proto \
-      --openapi_out=fq_schema_naming=false,default_response=false:${DESTDIR_OPENAPI}/${PROJECT} \
+      --openapi_out=fq_schema_naming=false,default_response=false,enum_type=string:${DESTDIR_OPENAPI}/${PROJECT} \
       ./proto/${PROJECT}/*.proto
 
   # generate go client/server according configuration

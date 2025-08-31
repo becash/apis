@@ -12,6 +12,48 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// Defines values for AvailabilityCurrency.
+const (
+	AvailabilityCurrencyCURRENCYUNSPECIFIED AvailabilityCurrency = "CURRENCY_UNSPECIFIED"
+	AvailabilityCurrencyEUR                 AvailabilityCurrency = "EUR"
+	AvailabilityCurrencyMDL                 AvailabilityCurrency = "MDL"
+	AvailabilityCurrencyUSD                 AvailabilityCurrency = "USD"
+)
+
+// Defines values for OrderCurrency.
+const (
+	OrderCurrencyCURRENCYUNSPECIFIED OrderCurrency = "CURRENCY_UNSPECIFIED"
+	OrderCurrencyEUR                 OrderCurrency = "EUR"
+	OrderCurrencyMDL                 OrderCurrency = "MDL"
+	OrderCurrencyUSD                 OrderCurrency = "USD"
+)
+
+// Defines values for OrderStatus.
+const (
+	DRAFT         OrderStatus = "DRAFT"
+	OSUNSPECIFIED OrderStatus = "OS_UNSPECIFIED"
+)
+
+// Defines values for ProductSupplierId.
+const (
+	ProductSupplierIdSUPPLIERUNSPECIFIED ProductSupplierId = "SUPPLIER_UNSPECIFIED"
+	ProductSupplierIdYANOJA              ProductSupplierId = "YANOJA"
+)
+
+// Defines values for ServiceToSwallowCreateOrderParamsCurrency.
+const (
+	CURRENCYUNSPECIFIED ServiceToSwallowCreateOrderParamsCurrency = "CURRENCY_UNSPECIFIED"
+	EUR                 ServiceToSwallowCreateOrderParamsCurrency = "EUR"
+	MDL                 ServiceToSwallowCreateOrderParamsCurrency = "MDL"
+	USD                 ServiceToSwallowCreateOrderParamsCurrency = "USD"
+)
+
+// Defines values for ServiceToSwallowGetProductsParamsSupplierId.
+const (
+	ServiceToSwallowGetProductsParamsSupplierIdSUPPLIERUNSPECIFIED ServiceToSwallowGetProductsParamsSupplierId = "SUPPLIER_UNSPECIFIED"
+	ServiceToSwallowGetProductsParamsSupplierIdYANOJA              ServiceToSwallowGetProductsParamsSupplierId = "YANOJA"
+)
+
 // Availabilities defines model for Availabilities.
 type Availabilities struct {
 	Count *string       `json:"count,omitempty"`
@@ -20,10 +62,13 @@ type Availabilities struct {
 
 // Availability defines model for Availability.
 type Availability struct {
-	Currency  *int       `json:"currency,omitempty"`
-	DateTime  *time.Time `json:"dateTime,omitempty"`
-	ProductId *int32     `json:"productId,omitempty"`
+	Currency  *AvailabilityCurrency `json:"currency,omitempty"`
+	DateTime  *time.Time            `json:"dateTime,omitempty"`
+	ProductId *int32                `json:"productId,omitempty"`
 }
+
+// AvailabilityCurrency defines model for Availability.Currency.
+type AvailabilityCurrency string
 
 // I18n defines model for I18n.
 type I18n struct {
@@ -32,11 +77,17 @@ type I18n struct {
 
 // Order defines model for Order.
 type Order struct {
-	Created  *time.Time `json:"created,omitempty"`
-	Currency *int       `json:"currency,omitempty"`
-	Id       *int32     `json:"id,omitempty"`
-	Status   *int       `json:"status,omitempty"`
+	Created  *time.Time     `json:"created,omitempty"`
+	Currency *OrderCurrency `json:"currency,omitempty"`
+	Id       *int32         `json:"id,omitempty"`
+	Status   *OrderStatus   `json:"status,omitempty"`
 }
+
+// OrderCurrency defines model for Order.Currency.
+type OrderCurrency string
+
+// OrderStatus defines model for Order.Status.
+type OrderStatus string
 
 // Orders defines model for Orders.
 type Orders struct {
@@ -46,11 +97,14 @@ type Orders struct {
 
 // Product defines model for Product.
 type Product struct {
-	Description *I18n  `json:"description,omitempty"`
-	Id          *int32 `json:"id,omitempty"`
-	SupplierId  *int   `json:"supplierId,omitempty"`
-	Title       *I18n  `json:"title,omitempty"`
+	Description *I18n              `json:"description,omitempty"`
+	Id          *int32             `json:"id,omitempty"`
+	SupplierId  *ProductSupplierId `json:"supplierId,omitempty"`
+	Title       *I18n              `json:"title,omitempty"`
 }
+
+// ProductSupplierId defines model for Product.SupplierId.
+type ProductSupplierId string
 
 // Products defines model for Products.
 type Products struct {
@@ -60,8 +114,11 @@ type Products struct {
 
 // ServiceToSwallowCreateOrderParams defines parameters for ServiceToSwallowCreateOrder.
 type ServiceToSwallowCreateOrderParams struct {
-	Currency *int `form:"currency,omitempty" json:"currency,omitempty"`
+	Currency *ServiceToSwallowCreateOrderParamsCurrency `form:"currency,omitempty" json:"currency,omitempty"`
 }
+
+// ServiceToSwallowCreateOrderParamsCurrency defines parameters for ServiceToSwallowCreateOrder.
+type ServiceToSwallowCreateOrderParamsCurrency string
 
 // ServiceToSwallowGetOrdersParams defines parameters for ServiceToSwallowGetOrders.
 type ServiceToSwallowGetOrdersParams struct {
@@ -77,8 +134,11 @@ type ServiceToSwallowGetAvailabilityOfProductParams struct {
 
 // ServiceToSwallowGetProductsParams defines parameters for ServiceToSwallowGetProducts.
 type ServiceToSwallowGetProductsParams struct {
-	SupplierId *int `form:"supplierId,omitempty" json:"supplierId,omitempty"`
+	SupplierId *ServiceToSwallowGetProductsParamsSupplierId `form:"supplierId,omitempty" json:"supplierId,omitempty"`
 }
+
+// ServiceToSwallowGetProductsParamsSupplierId defines parameters for ServiceToSwallowGetProducts.
+type ServiceToSwallowGetProductsParamsSupplierId string
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {

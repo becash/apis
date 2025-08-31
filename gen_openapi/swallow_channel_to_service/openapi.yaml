@@ -15,7 +15,12 @@ paths:
                 - name: currency
                   in: query
                   schema:
-                    type: integer
+                    enum:
+                        - CURRENCY_UNSPECIFIED
+                        - MDL
+                        - USD
+                        - EUR
+                    type: string
                     format: enum
             responses:
                 "200":
@@ -124,7 +129,10 @@ paths:
                 - name: supplierId
                   in: query
                   schema:
-                    type: integer
+                    enum:
+                        - SUPPLIER_UNSPECIFIED
+                        - YANOJA
+                    type: string
                     format: enum
             responses:
                 "200":
@@ -152,7 +160,12 @@ components:
                     type: string
                     format: date-time
                 currency:
-                    type: integer
+                    enum:
+                        - CURRENCY_UNSPECIFIED
+                        - MDL
+                        - USD
+                        - EUR
+                    type: string
                     format: enum
         I18n:
             type: object
@@ -169,10 +182,18 @@ components:
                     type: string
                     format: date-time
                 currency:
-                    type: integer
+                    enum:
+                        - CURRENCY_UNSPECIFIED
+                        - MDL
+                        - USD
+                        - EUR
+                    type: string
                     format: enum
                 status:
-                    type: integer
+                    enum:
+                        - OS_UNSPECIFIED
+                        - DRAFT
+                    type: string
                     format: enum
         Orders:
             type: object
@@ -190,7 +211,10 @@ components:
                     type: integer
                     format: int32
                 supplierId:
-                    type: integer
+                    enum:
+                        - SUPPLIER_UNSPECIFIED
+                        - YANOJA
+                    type: string
                     format: enum
                 title:
                     $ref: '#/components/schemas/I18n'

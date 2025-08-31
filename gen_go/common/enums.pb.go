@@ -24,19 +24,19 @@ const (
 type Suppliers int32
 
 const (
-	Suppliers_SUPLIER_UNSPECIFIED Suppliers = 0
-	Suppliers_YANOJA              Suppliers = 1
+	Suppliers_SUPPLIER_UNSPECIFIED Suppliers = 0
+	Suppliers_YANOJA               Suppliers = 1
 )
 
 // Enum value maps for Suppliers.
 var (
 	Suppliers_name = map[int32]string{
-		0: "SUPLIER_UNSPECIFIED",
+		0: "SUPPLIER_UNSPECIFIED",
 		1: "YANOJA",
 	}
 	Suppliers_value = map[string]int32{
-		"SUPLIER_UNSPECIFIED": 0,
-		"YANOJA":              1,
+		"SUPPLIER_UNSPECIFIED": 0,
+		"YANOJA":               1,
 	}
 )
 
@@ -219,9 +219,9 @@ var File_common_enums_proto protoreflect.FileDescriptor
 
 const file_common_enums_proto_rawDesc = "" +
 	"\n" +
-	"\x12common/enums.proto\x12\x06common*0\n" +
-	"\tSuppliers\x12\x17\n" +
-	"\x13SUPLIER_UNSPECIFIED\x10\x00\x12\n" +
+	"\x12common/enums.proto\x12\x06common*1\n" +
+	"\tSuppliers\x12\x18\n" +
+	"\x14SUPPLIER_UNSPECIFIED\x10\x00\x12\n" +
 	"\n" +
 	"\x06YANOJA\x10\x01*>\n" +
 	"\x12CustomerCategories\x12\x12\n" +

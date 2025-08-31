@@ -5,7 +5,7 @@ package common;
 option go_package = "github.com/becash/apis/gen_go/common";
 
 enum Suppliers {
-  SUPLIER_UNSPECIFIED = 0;
+  SUPPLIER_UNSPECIFIED = 0;
   YANOJA = 1;
 }
 
