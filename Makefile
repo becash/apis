@@ -10,7 +10,6 @@ DESTDIR_GRAPHQL=./gen_graphql
 
 install:
 	@go install github.com/yoheimuta/protolint/cmd/protolint@latest
-	@sudo apt install python3-pip
 #	@pip install pre-commit
 #	@pre-commit install
 	@sudo usermod -aG docker $$USER

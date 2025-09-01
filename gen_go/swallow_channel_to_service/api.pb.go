@@ -27,14 +27,15 @@ var File_swallow_channel_to_service_api_proto protoreflect.FileDescriptor
 
 const file_swallow_channel_to_service_api_proto_rawDesc = "" +
 	"\n" +
-	"$swallow_channel_to_service/api.proto\x12\x1aswallow_channel_to_service\x1a\x16common/filter_id.proto\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a)swallow_channel_to_service/messages.proto2\xd2\x05\n" +
+	"$swallow_channel_to_service/api.proto\x12\x1aswallow_channel_to_service\x1a\x16common/filter_id.proto\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a)swallow_channel_to_service/messages.proto2\xc5\x06\n" +
 	"\x10ServiceToSwallow\x12\xae\x01\n" +
 	"\x18GetAvailabilityOfProduct\x128.swallow_channel_to_service.ProductAvailabilitiesRequest\x1a*.swallow_channel_to_service.Availabilities\",\x82\xd3\xe4\x93\x02&\x12$/product-availabilities/{product_id}\x12]\n" +
 	"\n" +
 	"GetProduct\x12\x13.common.ItemIdInt32\x1a#.swallow_channel_to_service.Product\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/product/{id}\x12t\n" +
 	"\vGetProducts\x12+.swallow_channel_to_service.ProductsRequest\x1a$.swallow_channel_to_service.Products\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
 	"/products/\x12q\n" +
-	"\vCreateOrder\x12..swallow_channel_to_service.CreateOrderRequest\x1a!.swallow_channel_to_service.Order\"\x0f\x82\xd3\xe4\x93\x02\t\"\a/order/\x12W\n" +
+	"\vCreateOrder\x12..swallow_channel_to_service.CreateOrderRequest\x1a!.swallow_channel_to_service.Order\"\x0f\x82\xd3\xe4\x93\x02\t\"\a/order/\x12q\n" +
+	"\vUpdateOrder\x12..swallow_channel_to_service.UpdateOrderRequest\x1a!.swallow_channel_to_service.Order\"\x0f\x82\xd3\xe4\x93\x02\t2\a/order/\x12W\n" +
 	"\bGetOrder\x12\x13.common.ItemIdInt32\x1a!.swallow_channel_to_service.Order\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/order/{id}\x12l\n" +
 	"\tGetOrders\x12).swallow_channel_to_service.OrdersRequest\x1a\".swallow_channel_to_service.Orders\"\x10\x82\xd3\xe4\x93\x02\n" +
 	"\x12\b/orders/B\xf4\x01\x92A\xb6\x01\x12\x8c\x01\n" +
@@ -45,31 +46,34 @@ var file_swallow_channel_to_service_api_proto_goTypes = []any{
 	(*common.ItemIdInt32)(nil),           // 1: common.ItemIdInt32
 	(*ProductsRequest)(nil),              // 2: swallow_channel_to_service.ProductsRequest
 	(*CreateOrderRequest)(nil),           // 3: swallow_channel_to_service.CreateOrderRequest
-	(*OrdersRequest)(nil),                // 4: swallow_channel_to_service.OrdersRequest
-	(*Availabilities)(nil),               // 5: swallow_channel_to_service.Availabilities
-	(*Product)(nil),                      // 6: swallow_channel_to_service.Product
-	(*Products)(nil),                     // 7: swallow_channel_to_service.Products
-	(*Order)(nil),                        // 8: swallow_channel_to_service.Order
-	(*Orders)(nil),                       // 9: swallow_channel_to_service.Orders
+	(*UpdateOrderRequest)(nil),           // 4: swallow_channel_to_service.UpdateOrderRequest
+	(*OrdersRequest)(nil),                // 5: swallow_channel_to_service.OrdersRequest
+	(*Availabilities)(nil),               // 6: swallow_channel_to_service.Availabilities
+	(*Product)(nil),                      // 7: swallow_channel_to_service.Product
+	(*Products)(nil),                     // 8: swallow_channel_to_service.Products
+	(*Order)(nil),                        // 9: swallow_channel_to_service.Order
+	(*Orders)(nil),                       // 10: swallow_channel_to_service.Orders
 }
 var file_swallow_channel_to_service_api_proto_depIdxs = []int32{
-	0, // 0: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:input_type -> swallow_channel_to_service.ProductAvailabilitiesRequest
-	1, // 1: swallow_channel_to_service.ServiceToSwallow.GetProduct:input_type -> common.ItemIdInt32
-	2, // 2: swallow_channel_to_service.ServiceToSwallow.GetProducts:input_type -> swallow_channel_to_service.ProductsRequest
-	3, // 3: swallow_channel_to_service.ServiceToSwallow.CreateOrder:input_type -> swallow_channel_to_service.CreateOrderRequest
-	1, // 4: swallow_channel_to_service.ServiceToSwallow.GetOrder:input_type -> common.ItemIdInt32
-	4, // 5: swallow_channel_to_service.ServiceToSwallow.GetOrders:input_type -> swallow_channel_to_service.OrdersRequest
-	5, // 6: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:output_type -> swallow_channel_to_service.Availabilities
-	6, // 7: swallow_channel_to_service.ServiceToSwallow.GetProduct:output_type -> swallow_channel_to_service.Product
-	7, // 8: swallow_channel_to_service.ServiceToSwallow.GetProducts:output_type -> swallow_channel_to_service.Products
-	8, // 9: swallow_channel_to_service.ServiceToSwallow.CreateOrder:output_type -> swallow_channel_to_service.Order
-	8, // 10: swallow_channel_to_service.ServiceToSwallow.GetOrder:output_type -> swallow_channel_to_service.Order
-	9, // 11: swallow_channel_to_service.ServiceToSwallow.GetOrders:output_type -> swallow_channel_to_service.Orders
-	6, // [6:12] is the sub-list for method output_type
-	0, // [0:6] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:input_type -> swallow_channel_to_service.ProductAvailabilitiesRequest
+	1,  // 1: swallow_channel_to_service.ServiceToSwallow.GetProduct:input_type -> common.ItemIdInt32
+	2,  // 2: swallow_channel_to_service.ServiceToSwallow.GetProducts:input_type -> swallow_channel_to_service.ProductsRequest
+	3,  // 3: swallow_channel_to_service.ServiceToSwallow.CreateOrder:input_type -> swallow_channel_to_service.CreateOrderRequest
+	4,  // 4: swallow_channel_to_service.ServiceToSwallow.UpdateOrder:input_type -> swallow_channel_to_service.UpdateOrderRequest
+	1,  // 5: swallow_channel_to_service.ServiceToSwallow.GetOrder:input_type -> common.ItemIdInt32
+	5,  // 6: swallow_channel_to_service.ServiceToSwallow.GetOrders:input_type -> swallow_channel_to_service.OrdersRequest
+	6,  // 7: swallow_channel_to_service.ServiceToSwallow.GetAvailabilityOfProduct:output_type -> swallow_channel_to_service.Availabilities
+	7,  // 8: swallow_channel_to_service.ServiceToSwallow.GetProduct:output_type -> swallow_channel_to_service.Product
+	8,  // 9: swallow_channel_to_service.ServiceToSwallow.GetProducts:output_type -> swallow_channel_to_service.Products
+	9,  // 10: swallow_channel_to_service.ServiceToSwallow.CreateOrder:output_type -> swallow_channel_to_service.Order
+	9,  // 11: swallow_channel_to_service.ServiceToSwallow.UpdateOrder:output_type -> swallow_channel_to_service.Order
+	9,  // 12: swallow_channel_to_service.ServiceToSwallow.GetOrder:output_type -> swallow_channel_to_service.Order
+	10, // 13: swallow_channel_to_service.ServiceToSwallow.GetOrders:output_type -> swallow_channel_to_service.Orders
+	7,  // [7:14] is the sub-list for method output_type
+	0,  // [0:7] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_swallow_channel_to_service_api_proto_init() }

@@ -27,3 +27,10 @@ enum OrderStatus {
   //Mean that order is not confirmed by customer, like prebooking or reservation of somthing
   DRAFT = 1;
 }
+
+enum ProductType {
+  PT_UNSPECIFIED = 0;
+  //is a physical product
+  GOOD = 1;
+  SERVICE = 2;
+}

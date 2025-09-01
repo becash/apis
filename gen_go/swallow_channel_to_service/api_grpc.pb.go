@@ -24,6 +24,7 @@ const (
 	ServiceToSwallow_GetProduct_FullMethodName               = "/swallow_channel_to_service.ServiceToSwallow/GetProduct"
 	ServiceToSwallow_GetProducts_FullMethodName              = "/swallow_channel_to_service.ServiceToSwallow/GetProducts"
 	ServiceToSwallow_CreateOrder_FullMethodName              = "/swallow_channel_to_service.ServiceToSwallow/CreateOrder"
+	ServiceToSwallow_UpdateOrder_FullMethodName              = "/swallow_channel_to_service.ServiceToSwallow/UpdateOrder"
 	ServiceToSwallow_GetOrder_FullMethodName                 = "/swallow_channel_to_service.ServiceToSwallow/GetOrder"
 	ServiceToSwallow_GetOrders_FullMethodName                = "/swallow_channel_to_service.ServiceToSwallow/GetOrders"
 )
@@ -37,6 +38,7 @@ type ServiceToSwallowClient interface {
 	GetProduct(ctx context.Context, in *common.ItemIdInt32, opts ...grpc.CallOption) (*Product, error)
 	GetProducts(ctx context.Context, in *ProductsRequest, opts ...grpc.CallOption) (*Products, error)
 	CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*Order, error)
+	UpdateOrder(ctx context.Context, in *UpdateOrderRequest, opts ...grpc.CallOption) (*Order, error)
 	GetOrder(ctx context.Context, in *common.ItemIdInt32, opts ...grpc.CallOption) (*Order, error)
 	GetOrders(ctx context.Context, in *OrdersRequest, opts ...grpc.CallOption) (*Orders, error)
 }
@@ -89,6 +91,16 @@ func (c *serviceToSwallowClient) CreateOrder(ctx context.Context, in *CreateOrde
 	return out, nil
 }
 
+func (c *serviceToSwallowClient) UpdateOrder(ctx context.Context, in *UpdateOrderRequest, opts ...grpc.CallOption) (*Order, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Order)
+	err := c.cc.Invoke(ctx, ServiceToSwallow_UpdateOrder_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceToSwallowClient) GetOrder(ctx context.Context, in *common.ItemIdInt32, opts ...grpc.CallOption) (*Order, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Order)
@@ -118,6 +130,7 @@ type ServiceToSwallowServer interface {
 	GetProduct(context.Context, *common.ItemIdInt32) (*Product, error)
 	GetProducts(context.Context, *ProductsRequest) (*Products, error)
 	CreateOrder(context.Context, *CreateOrderRequest) (*Order, error)
+	UpdateOrder(context.Context, *UpdateOrderRequest) (*Order, error)
 	GetOrder(context.Context, *common.ItemIdInt32) (*Order, error)
 	GetOrders(context.Context, *OrdersRequest) (*Orders, error)
 	mustEmbedUnimplementedServiceToSwallowServer()
@@ -141,6 +154,9 @@ func (UnimplementedServiceToSwallowServer) GetProducts(context.Context, *Product
 }
 func (UnimplementedServiceToSwallowServer) CreateOrder(context.Context, *CreateOrderRequest) (*Order, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
+}
+func (UnimplementedServiceToSwallowServer) UpdateOrder(context.Context, *UpdateOrderRequest) (*Order, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrder not implemented")
 }
 func (UnimplementedServiceToSwallowServer) GetOrder(context.Context, *common.ItemIdInt32) (*Order, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
@@ -241,6 +257,24 @@ func _ServiceToSwallow_CreateOrder_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceToSwallow_UpdateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceToSwallowServer).UpdateOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceToSwallow_UpdateOrder_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceToSwallowServer).UpdateOrder(ctx, req.(*UpdateOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ServiceToSwallow_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(common.ItemIdInt32)
 	if err := dec(in); err != nil {
@@ -299,6 +333,10 @@ var ServiceToSwallow_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateOrder",
 			Handler:    _ServiceToSwallow_CreateOrder_Handler,
+		},
+		{
+			MethodName: "UpdateOrder",
+			Handler:    _ServiceToSwallow_UpdateOrder_Handler,
 		},
 		{
 			MethodName: "GetOrder",

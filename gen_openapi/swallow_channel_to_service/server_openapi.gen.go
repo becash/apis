@@ -40,12 +40,27 @@ const (
 	ProductSupplierIdYANOJA              ProductSupplierId = "YANOJA"
 )
 
+// Defines values for ProductType.
+const (
+	GOOD          ProductType = "GOOD"
+	PTUNSPECIFIED ProductType = "PT_UNSPECIFIED"
+	SERVICE       ProductType = "SERVICE"
+)
+
+// Defines values for ServiceToSwallowUpdateOrderParamsCurrency.
+const (
+	ServiceToSwallowUpdateOrderParamsCurrencyCURRENCYUNSPECIFIED ServiceToSwallowUpdateOrderParamsCurrency = "CURRENCY_UNSPECIFIED"
+	ServiceToSwallowUpdateOrderParamsCurrencyEUR                 ServiceToSwallowUpdateOrderParamsCurrency = "EUR"
+	ServiceToSwallowUpdateOrderParamsCurrencyMDL                 ServiceToSwallowUpdateOrderParamsCurrency = "MDL"
+	ServiceToSwallowUpdateOrderParamsCurrencyUSD                 ServiceToSwallowUpdateOrderParamsCurrency = "USD"
+)
+
 // Defines values for ServiceToSwallowCreateOrderParamsCurrency.
 const (
-	CURRENCYUNSPECIFIED ServiceToSwallowCreateOrderParamsCurrency = "CURRENCY_UNSPECIFIED"
-	EUR                 ServiceToSwallowCreateOrderParamsCurrency = "EUR"
-	MDL                 ServiceToSwallowCreateOrderParamsCurrency = "MDL"
-	USD                 ServiceToSwallowCreateOrderParamsCurrency = "USD"
+	ServiceToSwallowCreateOrderParamsCurrencyCURRENCYUNSPECIFIED ServiceToSwallowCreateOrderParamsCurrency = "CURRENCY_UNSPECIFIED"
+	ServiceToSwallowCreateOrderParamsCurrencyEUR                 ServiceToSwallowCreateOrderParamsCurrency = "EUR"
+	ServiceToSwallowCreateOrderParamsCurrencyMDL                 ServiceToSwallowCreateOrderParamsCurrency = "MDL"
+	ServiceToSwallowCreateOrderParamsCurrencyUSD                 ServiceToSwallowCreateOrderParamsCurrency = "USD"
 )
 
 // Defines values for ServiceToSwallowGetProductsParamsSupplierId.
@@ -101,16 +116,29 @@ type Product struct {
 	Id          *int32             `json:"id,omitempty"`
 	SupplierId  *ProductSupplierId `json:"supplierId,omitempty"`
 	Title       *I18n              `json:"title,omitempty"`
+	Type        *ProductType       `json:"type,omitempty"`
 }
 
 // ProductSupplierId defines model for Product.SupplierId.
 type ProductSupplierId string
+
+// ProductType defines model for Product.Type.
+type ProductType string
 
 // Products defines model for Products.
 type Products struct {
 	Count *string    `json:"count,omitempty"`
 	Data  *[]Product `json:"data,omitempty"`
 }
+
+// ServiceToSwallowUpdateOrderParams defines parameters for ServiceToSwallowUpdateOrder.
+type ServiceToSwallowUpdateOrderParams struct {
+	Id       *int32                                     `form:"Id,omitempty" json:"Id,omitempty"`
+	Currency *ServiceToSwallowUpdateOrderParamsCurrency `form:"currency,omitempty" json:"currency,omitempty"`
+}
+
+// ServiceToSwallowUpdateOrderParamsCurrency defines parameters for ServiceToSwallowUpdateOrder.
+type ServiceToSwallowUpdateOrderParamsCurrency string
 
 // ServiceToSwallowCreateOrderParams defines parameters for ServiceToSwallowCreateOrder.
 type ServiceToSwallowCreateOrderParams struct {
@@ -143,6 +171,9 @@ type ServiceToSwallowGetProductsParamsSupplierId string
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 
+	// (PATCH /order/)
+	ServiceToSwallowUpdateOrder(c *gin.Context, params ServiceToSwallowUpdateOrderParams)
+
 	// (POST /order/)
 	ServiceToSwallowCreateOrder(c *gin.Context, params ServiceToSwallowCreateOrderParams)
 
@@ -170,6 +201,40 @@ type ServerInterfaceWrapper struct {
 }
 
 type MiddlewareFunc func(c *gin.Context)
+
+// ServiceToSwallowUpdateOrder operation middleware
+func (siw *ServerInterfaceWrapper) ServiceToSwallowUpdateOrder(c *gin.Context) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ServiceToSwallowUpdateOrderParams
+
+	// ------------- Optional query parameter "Id" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "Id", c.Request.URL.Query(), &params.Id)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter Id: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// ------------- Optional query parameter "currency" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "currency", c.Request.URL.Query(), &params.Currency)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter currency: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.ServiceToSwallowUpdateOrder(c, params)
+}
 
 // ServiceToSwallowCreateOrder operation middleware
 func (siw *ServerInterfaceWrapper) ServiceToSwallowCreateOrder(c *gin.Context) {
@@ -375,6 +440,7 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 		ErrorHandler:       errorHandler,
 	}
 
+	router.PATCH(options.BaseURL+"/order/", wrapper.ServiceToSwallowUpdateOrder)
 	router.POST(options.BaseURL+"/order/", wrapper.ServiceToSwallowCreateOrder)
 	router.GET(options.BaseURL+"/order/:id", wrapper.ServiceToSwallowGetOrder)
 	router.GET(options.BaseURL+"/orders/", wrapper.ServiceToSwallowGetOrders)

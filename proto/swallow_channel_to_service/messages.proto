@@ -52,9 +52,15 @@ message Product {
   common.Suppliers supplier_id =2;
   common.I18n title = 3;
   common.I18n description = 4;
+  common.ProductType type = 5;
 }
 
 message CreateOrderRequest {
+  common.Currency currency = 3;
+}
+
+message UpdateOrderRequest {
+  int32 _id = 1;
   common.Currency currency = 3;
 }
 

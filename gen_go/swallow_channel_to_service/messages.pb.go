@@ -290,6 +290,7 @@ type Product struct {
 	SupplierId    common.Suppliers       `protobuf:"varint,2,opt,name=supplier_id,json=supplierId,proto3,enum=common.Suppliers" json:"supplier_id,omitempty"`
 	Title         *common.I18N           `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
 	Description   *common.I18N           `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Type          common.ProductType     `protobuf:"varint,5,opt,name=type,proto3,enum=common.ProductType" json:"type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -352,6 +353,13 @@ func (x *Product) GetDescription() *common.I18N {
 	return nil
 }
 
+func (x *Product) GetType() common.ProductType {
+	if x != nil {
+		return x.Type
+	}
+	return common.ProductType(0)
+}
+
 type CreateOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Currency      common.Currency        `protobuf:"varint,3,opt,name=currency,proto3,enum=common.Currency" json:"currency,omitempty"`
@@ -396,6 +404,58 @@ func (x *CreateOrderRequest) GetCurrency() common.Currency {
 	return common.Currency(0)
 }
 
+type UpdateOrderRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	XId           int32                  `protobuf:"varint,1,opt,name=_id,json=Id,proto3" json:"_id,omitempty"`
+	Currency      common.Currency        `protobuf:"varint,3,opt,name=currency,proto3,enum=common.Currency" json:"currency,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateOrderRequest) Reset() {
+	*x = UpdateOrderRequest{}
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateOrderRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateOrderRequest) ProtoMessage() {}
+
+func (x *UpdateOrderRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateOrderRequest.ProtoReflect.Descriptor instead.
+func (*UpdateOrderRequest) Descriptor() ([]byte, []int) {
+	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateOrderRequest) GetXId() int32 {
+	if x != nil {
+		return x.XId
+	}
+	return 0
+}
+
+func (x *UpdateOrderRequest) GetCurrency() common.Currency {
+	if x != nil {
+		return x.Currency
+	}
+	return common.Currency(0)
+}
+
 type Order struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -408,7 +468,7 @@ type Order struct {
 
 func (x *Order) Reset() {
 	*x = Order{}
-	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[7]
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -420,7 +480,7 @@ func (x *Order) String() string {
 func (*Order) ProtoMessage() {}
 
 func (x *Order) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[7]
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -433,7 +493,7 @@ func (x *Order) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Order.ProtoReflect.Descriptor instead.
 func (*Order) Descriptor() ([]byte, []int) {
-	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{7}
+	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Order) GetId() int32 {
@@ -474,7 +534,7 @@ type Orders struct {
 
 func (x *Orders) Reset() {
 	*x = Orders{}
-	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[8]
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -486,7 +546,7 @@ func (x *Orders) String() string {
 func (*Orders) ProtoMessage() {}
 
 func (x *Orders) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[8]
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -499,7 +559,7 @@ func (x *Orders) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Orders.ProtoReflect.Descriptor instead.
 func (*Orders) Descriptor() ([]byte, []int) {
-	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{8}
+	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *Orders) GetData() []*Order {
@@ -525,7 +585,7 @@ type OrdersRequest struct {
 
 func (x *OrdersRequest) Reset() {
 	*x = OrdersRequest{}
-	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[9]
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -537,7 +597,7 @@ func (x *OrdersRequest) String() string {
 func (*OrdersRequest) ProtoMessage() {}
 
 func (x *OrdersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[9]
+	mi := &file_swallow_channel_to_service_messages_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -550,7 +610,7 @@ func (x *OrdersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrdersRequest.ProtoReflect.Descriptor instead.
 func (*OrdersRequest) Descriptor() ([]byte, []int) {
-	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{9}
+	return file_swallow_channel_to_service_messages_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *OrdersRequest) GetRange() *common.DateRange {
@@ -582,14 +642,18 @@ const file_swallow_channel_to_service_messages_proto_rawDesc = "" +
 	"\x05count\x18\x02 \x01(\x03R\x05count\"E\n" +
 	"\x0fProductsRequest\x122\n" +
 	"\vsupplier_id\x18\x01 \x01(\x0e2\x11.common.SuppliersR\n" +
-	"supplierId\"\xa1\x01\n" +
+	"supplierId\"\xca\x01\n" +
 	"\aProduct\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x122\n" +
 	"\vsupplier_id\x18\x02 \x01(\x0e2\x11.common.SuppliersR\n" +
 	"supplierId\x12\"\n" +
 	"\x05title\x18\x03 \x01(\v2\f.common.I18nR\x05title\x12.\n" +
-	"\vdescription\x18\x04 \x01(\v2\f.common.I18nR\vdescription\"B\n" +
+	"\vdescription\x18\x04 \x01(\v2\f.common.I18nR\vdescription\x12'\n" +
+	"\x04type\x18\x05 \x01(\x0e2\x13.common.ProductTypeR\x04type\"B\n" +
 	"\x12CreateOrderRequest\x12,\n" +
+	"\bcurrency\x18\x03 \x01(\x0e2\x10.common.CurrencyR\bcurrency\"S\n" +
+	"\x12UpdateOrderRequest\x12\x0f\n" +
+	"\x03_id\x18\x01 \x01(\x05R\x02Id\x12,\n" +
 	"\bcurrency\x18\x03 \x01(\x0e2\x10.common.CurrencyR\bcurrency\"\xa8\x01\n" +
 	"\x05Order\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x124\n" +
@@ -615,7 +679,7 @@ func file_swallow_channel_to_service_messages_proto_rawDescGZIP() []byte {
 	return file_swallow_channel_to_service_messages_proto_rawDescData
 }
 
-var file_swallow_channel_to_service_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_swallow_channel_to_service_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_swallow_channel_to_service_messages_proto_goTypes = []any{
 	(*ProductAvailabilitiesRequest)(nil), // 0: swallow_channel_to_service.ProductAvailabilitiesRequest
 	(*Availability)(nil),                 // 1: swallow_channel_to_service.Availability
@@ -624,37 +688,41 @@ var file_swallow_channel_to_service_messages_proto_goTypes = []any{
 	(*ProductsRequest)(nil),              // 4: swallow_channel_to_service.ProductsRequest
 	(*Product)(nil),                      // 5: swallow_channel_to_service.Product
 	(*CreateOrderRequest)(nil),           // 6: swallow_channel_to_service.CreateOrderRequest
-	(*Order)(nil),                        // 7: swallow_channel_to_service.Order
-	(*Orders)(nil),                       // 8: swallow_channel_to_service.Orders
-	(*OrdersRequest)(nil),                // 9: swallow_channel_to_service.OrdersRequest
-	(*common.DateRange)(nil),             // 10: common.DateRange
-	(*timestamppb.Timestamp)(nil),        // 11: google.protobuf.Timestamp
-	(common.Currency)(0),                 // 12: common.Currency
-	(common.Suppliers)(0),                // 13: common.Suppliers
-	(*common.I18N)(nil),                  // 14: common.I18n
-	(common.OrderStatus)(0),              // 15: common.OrderStatus
+	(*UpdateOrderRequest)(nil),           // 7: swallow_channel_to_service.UpdateOrderRequest
+	(*Order)(nil),                        // 8: swallow_channel_to_service.Order
+	(*Orders)(nil),                       // 9: swallow_channel_to_service.Orders
+	(*OrdersRequest)(nil),                // 10: swallow_channel_to_service.OrdersRequest
+	(*common.DateRange)(nil),             // 11: common.DateRange
+	(*timestamppb.Timestamp)(nil),        // 12: google.protobuf.Timestamp
+	(common.Currency)(0),                 // 13: common.Currency
+	(common.Suppliers)(0),                // 14: common.Suppliers
+	(*common.I18N)(nil),                  // 15: common.I18n
+	(common.ProductType)(0),              // 16: common.ProductType
+	(common.OrderStatus)(0),              // 17: common.OrderStatus
 }
 var file_swallow_channel_to_service_messages_proto_depIdxs = []int32{
-	10, // 0: swallow_channel_to_service.ProductAvailabilitiesRequest.range:type_name -> common.DateRange
-	11, // 1: swallow_channel_to_service.Availability.date_time:type_name -> google.protobuf.Timestamp
-	12, // 2: swallow_channel_to_service.Availability.currency:type_name -> common.Currency
+	11, // 0: swallow_channel_to_service.ProductAvailabilitiesRequest.range:type_name -> common.DateRange
+	12, // 1: swallow_channel_to_service.Availability.date_time:type_name -> google.protobuf.Timestamp
+	13, // 2: swallow_channel_to_service.Availability.currency:type_name -> common.Currency
 	1,  // 3: swallow_channel_to_service.Availabilities.data:type_name -> swallow_channel_to_service.Availability
 	5,  // 4: swallow_channel_to_service.Products.data:type_name -> swallow_channel_to_service.Product
-	13, // 5: swallow_channel_to_service.ProductsRequest.supplier_id:type_name -> common.Suppliers
-	13, // 6: swallow_channel_to_service.Product.supplier_id:type_name -> common.Suppliers
-	14, // 7: swallow_channel_to_service.Product.title:type_name -> common.I18n
-	14, // 8: swallow_channel_to_service.Product.description:type_name -> common.I18n
-	12, // 9: swallow_channel_to_service.CreateOrderRequest.currency:type_name -> common.Currency
-	11, // 10: swallow_channel_to_service.Order.created:type_name -> google.protobuf.Timestamp
-	12, // 11: swallow_channel_to_service.Order.currency:type_name -> common.Currency
-	15, // 12: swallow_channel_to_service.Order.status:type_name -> common.OrderStatus
-	7,  // 13: swallow_channel_to_service.Orders.data:type_name -> swallow_channel_to_service.Order
-	10, // 14: swallow_channel_to_service.OrdersRequest.range:type_name -> common.DateRange
-	15, // [15:15] is the sub-list for method output_type
-	15, // [15:15] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	14, // 5: swallow_channel_to_service.ProductsRequest.supplier_id:type_name -> common.Suppliers
+	14, // 6: swallow_channel_to_service.Product.supplier_id:type_name -> common.Suppliers
+	15, // 7: swallow_channel_to_service.Product.title:type_name -> common.I18n
+	15, // 8: swallow_channel_to_service.Product.description:type_name -> common.I18n
+	16, // 9: swallow_channel_to_service.Product.type:type_name -> common.ProductType
+	13, // 10: swallow_channel_to_service.CreateOrderRequest.currency:type_name -> common.Currency
+	13, // 11: swallow_channel_to_service.UpdateOrderRequest.currency:type_name -> common.Currency
+	12, // 12: swallow_channel_to_service.Order.created:type_name -> google.protobuf.Timestamp
+	13, // 13: swallow_channel_to_service.Order.currency:type_name -> common.Currency
+	17, // 14: swallow_channel_to_service.Order.status:type_name -> common.OrderStatus
+	8,  // 15: swallow_channel_to_service.Orders.data:type_name -> swallow_channel_to_service.Order
+	11, // 16: swallow_channel_to_service.OrdersRequest.range:type_name -> common.DateRange
+	17, // [17:17] is the sub-list for method output_type
+	17, // [17:17] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_swallow_channel_to_service_messages_proto_init() }
@@ -668,7 +736,7 @@ func file_swallow_channel_to_service_messages_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_swallow_channel_to_service_messages_proto_rawDesc), len(file_swallow_channel_to_service_messages_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

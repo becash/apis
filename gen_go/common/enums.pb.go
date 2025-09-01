@@ -215,6 +215,56 @@ func (OrderStatus) EnumDescriptor() ([]byte, []int) {
 	return file_common_enums_proto_rawDescGZIP(), []int{3}
 }
 
+type ProductType int32
+
+const (
+	ProductType_PT_UNSPECIFIED ProductType = 0
+	// is a physical product
+	ProductType_GOOD    ProductType = 1
+	ProductType_SERVICE ProductType = 2
+)
+
+// Enum value maps for ProductType.
+var (
+	ProductType_name = map[int32]string{
+		0: "PT_UNSPECIFIED",
+		1: "GOOD",
+		2: "SERVICE",
+	}
+	ProductType_value = map[string]int32{
+		"PT_UNSPECIFIED": 0,
+		"GOOD":           1,
+		"SERVICE":        2,
+	}
+)
+
+func (x ProductType) Enum() *ProductType {
+	p := new(ProductType)
+	*p = x
+	return p
+}
+
+func (x ProductType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ProductType) Descriptor() protoreflect.EnumDescriptor {
+	return file_common_enums_proto_enumTypes[4].Descriptor()
+}
+
+func (ProductType) Type() protoreflect.EnumType {
+	return &file_common_enums_proto_enumTypes[4]
+}
+
+func (x ProductType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ProductType.Descriptor instead.
+func (ProductType) EnumDescriptor() ([]byte, []int) {
+	return file_common_enums_proto_rawDescGZIP(), []int{4}
+}
+
 var File_common_enums_proto protoreflect.FileDescriptor
 
 const file_common_enums_proto_rawDesc = "" +
@@ -235,7 +285,11 @@ const file_common_enums_proto_rawDesc = "" +
 	"\x03EUR\x10\x03*,\n" +
 	"\vOrderStatus\x12\x12\n" +
 	"\x0eOS_UNSPECIFIED\x10\x00\x12\t\n" +
-	"\x05DRAFT\x10\x01B&Z$github.com/becash/apis/gen_go/commonb\x06proto3"
+	"\x05DRAFT\x10\x01*8\n" +
+	"\vProductType\x12\x12\n" +
+	"\x0ePT_UNSPECIFIED\x10\x00\x12\b\n" +
+	"\x04GOOD\x10\x01\x12\v\n" +
+	"\aSERVICE\x10\x02B&Z$github.com/becash/apis/gen_go/commonb\x06proto3"
 
 var (
 	file_common_enums_proto_rawDescOnce sync.Once
@@ -249,12 +303,13 @@ func file_common_enums_proto_rawDescGZIP() []byte {
 	return file_common_enums_proto_rawDescData
 }
 
-var file_common_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+var file_common_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
 var file_common_enums_proto_goTypes = []any{
 	(Suppliers)(0),          // 0: common.Suppliers
 	(CustomerCategories)(0), // 1: common.CustomerCategories
 	(Currency)(0),           // 2: common.Currency
 	(OrderStatus)(0),        // 3: common.OrderStatus
+	(ProductType)(0),        // 4: common.ProductType
 }
 var file_common_enums_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -274,7 +329,7 @@ func file_common_enums_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_common_enums_proto_rawDesc), len(file_common_enums_proto_rawDesc)),
-			NumEnums:      4,
+			NumEnums:      5,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,

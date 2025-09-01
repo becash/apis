@@ -29,6 +29,33 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Order'
+        patch:
+            tags:
+                - ServiceToSwallow
+            operationId: ServiceToSwallow_UpdateOrder
+            parameters:
+                - name: Id
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: currency
+                  in: query
+                  schema:
+                    enum:
+                        - CURRENCY_UNSPECIFIED
+                        - MDL
+                        - USD
+                        - EUR
+                    type: string
+                    format: enum
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Order'
     /order/{id}:
         get:
             tags:
@@ -220,6 +247,13 @@ components:
                     $ref: '#/components/schemas/I18n'
                 description:
                     $ref: '#/components/schemas/I18n'
+                type:
+                    enum:
+                        - PT_UNSPECIFIED
+                        - GOOD
+                        - SERVICE
+                    type: string
+                    format: enum
         Products:
             type: object
             properties:
