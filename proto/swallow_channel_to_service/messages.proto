@@ -55,8 +55,25 @@ message Product {
   common.ProductType type = 5;
 }
 
+
+message CreateOrderProduct {
+  // shallow product id
+  int32 id = 1;
+  // This filed  need  to fill in case where product in order  is a service, in this case we book service
+  CreateOrderProductBooking booking =2;
+}
+
+message CreateOrderProductBooking {
+  // external service field
+  string booking_reference =1;
+
+}
+
+
+
 message CreateOrderRequest {
-  common.Currency currency = 3;
+  common.Currency currency = 1;
+  repeated CreateOrderProduct products = 2;
 }
 
 message UpdateOrderRequest {
