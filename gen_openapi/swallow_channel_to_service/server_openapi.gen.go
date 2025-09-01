@@ -30,8 +30,8 @@ const (
 
 // Defines values for OrderStatus.
 const (
-	DRAFT         OrderStatus = "DRAFT"
-	OSUNSPECIFIED OrderStatus = "OS_UNSPECIFIED"
+	OrderStatusDRAFT         OrderStatus = "DRAFT"
+	OrderStatusOSUNSPECIFIED OrderStatus = "OS_UNSPECIFIED"
 )
 
 // Defines values for ProductSupplierId.
@@ -61,6 +61,12 @@ const (
 	ServiceToSwallowCreateOrderParamsCurrencyEUR                 ServiceToSwallowCreateOrderParamsCurrency = "EUR"
 	ServiceToSwallowCreateOrderParamsCurrencyMDL                 ServiceToSwallowCreateOrderParamsCurrency = "MDL"
 	ServiceToSwallowCreateOrderParamsCurrencyUSD                 ServiceToSwallowCreateOrderParamsCurrency = "USD"
+)
+
+// Defines values for ServiceToSwallowCreateOrderParamsStatus.
+const (
+	ServiceToSwallowCreateOrderParamsStatusDRAFT         ServiceToSwallowCreateOrderParamsStatus = "DRAFT"
+	ServiceToSwallowCreateOrderParamsStatusOSUNSPECIFIED ServiceToSwallowCreateOrderParamsStatus = "OS_UNSPECIFIED"
 )
 
 // Defines values for ServiceToSwallowGetProductsParamsSupplierId.
@@ -133,7 +139,7 @@ type Products struct {
 
 // ServiceToSwallowUpdateOrderParams defines parameters for ServiceToSwallowUpdateOrder.
 type ServiceToSwallowUpdateOrderParams struct {
-	Id       *int32                                     `form:"Id,omitempty" json:"Id,omitempty"`
+	Id       *int32                                     `form:"id,omitempty" json:"id,omitempty"`
 	Currency *ServiceToSwallowUpdateOrderParamsCurrency `form:"currency,omitempty" json:"currency,omitempty"`
 }
 
@@ -143,10 +149,14 @@ type ServiceToSwallowUpdateOrderParamsCurrency string
 // ServiceToSwallowCreateOrderParams defines parameters for ServiceToSwallowCreateOrder.
 type ServiceToSwallowCreateOrderParams struct {
 	Currency *ServiceToSwallowCreateOrderParamsCurrency `form:"currency,omitempty" json:"currency,omitempty"`
+	Status   *ServiceToSwallowCreateOrderParamsStatus   `form:"status,omitempty" json:"status,omitempty"`
 }
 
 // ServiceToSwallowCreateOrderParamsCurrency defines parameters for ServiceToSwallowCreateOrder.
 type ServiceToSwallowCreateOrderParamsCurrency string
+
+// ServiceToSwallowCreateOrderParamsStatus defines parameters for ServiceToSwallowCreateOrder.
+type ServiceToSwallowCreateOrderParamsStatus string
 
 // ServiceToSwallowGetOrdersParams defines parameters for ServiceToSwallowGetOrders.
 type ServiceToSwallowGetOrdersParams struct {
@@ -210,11 +220,11 @@ func (siw *ServerInterfaceWrapper) ServiceToSwallowUpdateOrder(c *gin.Context) {
 	// Parameter object where we will unmarshal all parameters from the context
 	var params ServiceToSwallowUpdateOrderParams
 
-	// ------------- Optional query parameter "Id" -------------
+	// ------------- Optional query parameter "id" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "Id", c.Request.URL.Query(), &params.Id)
+	err = runtime.BindQueryParameter("form", true, false, "id", c.Request.URL.Query(), &params.Id)
 	if err != nil {
-		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter Id: %w", err), http.StatusBadRequest)
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter id: %w", err), http.StatusBadRequest)
 		return
 	}
 
@@ -249,6 +259,14 @@ func (siw *ServerInterfaceWrapper) ServiceToSwallowCreateOrder(c *gin.Context) {
 	err = runtime.BindQueryParameter("form", true, false, "currency", c.Request.URL.Query(), &params.Currency)
 	if err != nil {
 		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter currency: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// ------------- Optional query parameter "status" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "status", c.Request.URL.Query(), &params.Status)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter status: %w", err), http.StatusBadRequest)
 		return
 	}
 

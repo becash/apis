@@ -22,6 +22,14 @@ paths:
                         - EUR
                     type: string
                     format: enum
+                - name: status
+                  in: query
+                  schema:
+                    enum:
+                        - OS_UNSPECIFIED
+                        - DRAFT
+                    type: string
+                    format: enum
             responses:
                 "200":
                     description: OK
@@ -34,7 +42,7 @@ paths:
                 - ServiceToSwallow
             operationId: ServiceToSwallow_UpdateOrder
             parameters:
-                - name: Id
+                - name: id
                   in: query
                   schema:
                     type: integer

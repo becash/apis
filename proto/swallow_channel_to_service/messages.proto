@@ -73,11 +73,13 @@ message CreateOrderProductBooking {
 
 message CreateOrderRequest {
   common.Currency currency = 1;
+  // products  that need  to ad in order when create
   repeated CreateOrderProduct products = 2;
+  common.OrderStatus status = 3;
 }
 
 message UpdateOrderRequest {
-  int32 _id = 1;
+  int32 id = 1;
   common.Currency currency = 3;
 }
 
